@@ -1,0 +1,13 @@
+{
+  "description": "Change the font size",
+  "name": "ep_font_size",
+  "version": "0.0.5",
+  "author": {
+    "name": "John McLear",
+    "email": "john@mclear.co.uk"
+  },
+  "dependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}
