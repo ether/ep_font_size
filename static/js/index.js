@@ -33,7 +33,6 @@ var postAceInit = function(hook, context){
 
 
 function applyFontSize(context, size){
-console.log(size);
   context.ace.callWithAce(function(ace){
     ace.ace_doInsertSizes(size);
   },'font_size' , true);
@@ -42,6 +41,10 @@ console.log(size);
 
 // Our sizes attribute will result in a heaading:h1... :h6 class
 function aceAttribsToClasses(hook, context){
+  if(context.key.indexOf("sizes:") !== -1){
+    var size = /(?:^| )sizes:([A-Za-z0-9]*)/.exec(context.key);
+    return ['sizes:' + size[1] ];
+  }
   if(context.key == 'sizes'){
     return ['sizes:' + context.value ];
   }
