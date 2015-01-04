@@ -11,13 +11,12 @@ exports.postAceInit = function(hook, context){
   var fontSize = $('.size-selection');
   fontSize.on('change', function(){
     var value = $(this).val();
-    var intValue = parseInt(value,10) + 8;
     context.ace.callWithAce(function(ace){
       // remove all other attrs
       $.each(fs, function(k, v){
         ace.ace_setAttributeOnSelection(v, false);
       });
-      ace.ace_setAttributeOnSelection("fs"+intValue, true);
+      ace.ace_setAttributeOnSelection(value, true);
     },'insertfontsize' , true);
   })
   $('.ep_font_size').click(function(){
@@ -33,7 +32,40 @@ exports.postAceInit = function(hook, context){
 
 // To do show what font size is active on current selection
 exports.aceEditEvent = function(hook, call, cb){
-  // TODO
+  var cs = call.callstack;
+
+  if(!(cs.type == "handleClick") && !(cs.type == "handleKeyEvent") && !(cs.docTextChanged)){
+    return false;
+  }
+
+  // If it's an initial setup event then do nothing..
+  if(cs.type == "setBaseText" || cs.type == "setup") return false;
+  // It looks like we should check to see if this section has this attribute
+  setTimeout(function(){ // avoid race condition..
+
+    $('.size-selection').val("dummy"); // reset value to the dummy value
+
+    // Attribtes are never available on the first X caret position so we need to ignore that
+    if(call.rep.selStart[1] === 0){
+      // Attributes are never on the first line
+      return;
+    }
+    // The line has an attribute set, this means it wont get hte correct X caret position
+    if(call.rep.selStart[1] === 1){
+      if(call.rep.alltext[0] === "*"){
+        // Attributes are never on the "first" character of lines with attributes
+        return;
+      }
+    }
+    // the caret is in a new position.. Let's do some funky shit
+    $('.subscript > a').removeClass('activeButton');
+    $.each(fs, function(k,v){
+      if ( call.editorInfo.ace_getAttributeOnSelection(v) ) {
+        // show the button as being depressed.. Not sad, but active..
+        $('.size-selection').val(v);
+      }
+    });
+  },250);
 }
 
 /*****
