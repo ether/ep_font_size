@@ -9,6 +9,7 @@ exports.collectContentPre = function(hook, context){
   }
 };
 
+// never seems to be run
 exports.collectContentPost = function(hook, context){
   var tname = context.tname;
   var state = context.state;
