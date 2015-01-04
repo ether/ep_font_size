@@ -12,6 +12,11 @@ exports.postAceInit = function(hook, context){
     var value = $(this).val();
     var intValue = parseInt(value,10) + 8;
     context.ace.callWithAce(function(ace){
+      // remove all other attrs
+      var fs = (["fs8", "fs9", "fs10", "fs11", "fs12", "fs13", "fs14", "fs15", "fs16", "fs17", "fs18", "fs19", "fs20"]);
+      $.each(fs, function(k, v){
+        ace.ace_setAttributeOnSelection(v, false);
+      });
       ace.ace_setAttributeOnSelection("fs"+intValue, true);
     },'insertfontsize' , true);
   })
