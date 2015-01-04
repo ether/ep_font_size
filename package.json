@@ -1,7 +1,7 @@
 {
-  "description": "Add support for Font Sizes",
-  "name": "ep_font_size",
-  "version": "0.1.4",
+  "description": "Add support for different Fonts",
+  "name": "ep_font_family",
+  "version": "0.1.1",
   "author": {
     "name": "John McLear",
     "email": "john@mclear.co.uk"
