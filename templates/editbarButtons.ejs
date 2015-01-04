@@ -1,4 +1,5 @@
 <li class="separator acl-write"></li>
+<div>
 <li class="acl-write font-size-icon ep_font_size">
   <a title="Font Size">
     <span class="buttonicon"></span>
@@ -22,13 +23,19 @@
         <option value="fs20">20</option>
     </select>
 </li>
+</div>
 
 <style>
-ep_font_size {
+.ep_font_size {
   font-size:font-awesome;
 }
 .ep_font_size > a > .buttonicon:before{
   content:"\e81f";
   top: 2px !important;
 }
+.size-selection{
+  margin-left:-3px;
+  border-radius: 0 3px 3px 0 !important;
+}
+
 </style>
