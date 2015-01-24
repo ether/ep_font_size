@@ -1,4 +1,5 @@
 var eejs = require('ep_etherpad-lite/node/eejs/');
+var sizes = ["fs8", "fs9", "fs10", "fs11", "fs12", "fs13", "fs14", "fs15", "fs16", "fs17", "fs18", "fs19", "fs20"];
 
 /******************** 
 * UI 
@@ -59,5 +60,18 @@ exports.stylesForExport = function(hook, padId, cb){
 
 // Add the props to be supported in export
 exports.exportHtmlAdditionalTags = function(hook, pad, cb){
-  cb(["fs8", "fs9", "fs10", "fs11", "fs12", "fs13", "fs14", "fs15", "fs16", "fs17", "fs18", "fs19", "fs20"]);
+  cb(sizes);
 };
+
+// This doesn't feel write.....
+// We change <fs*>into <span style="font-size:*px> and </fs* into </....
+// This is a fix for https://github.com/ether/etherpad-lite/issues/2485
+exports.getLineHTMLForExport = function (hook, context) {
+  var lineContent = context.lineContent;
+  sizes.forEach(function(size){
+    size = size.replace("fs","");
+    lineContent = lineContent.replace("<fs"+size, "<span style='font-size:"+size+"px'");
+    lineContent = lineContent.replace("</fs"+size, "</span");
+  });
+  return lineContent;
+}
