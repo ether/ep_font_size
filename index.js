@@ -87,9 +87,14 @@ function rewriteLine(context){
   sizes.forEach(function(size){
     size = size.replace("fs","");
     if(lineContent){
-      lineContent = lineContent.replace("<fs"+size, "<span style='font-size:"+size+"px'");
-      lineContent = lineContent.replace("</fs"+size, "</span");
+      lineContent = lineContent.replaceAll("<fs"+size, "<span style='font-size:"+size+"px'");
+      lineContent = lineContent.replaceAll("</fs"+size, "</span");
     }
   });
   return lineContent;
 }
+
+String.prototype.replaceAll = function(str1, str2, ignore) 
+{
+  return this.replace(new RegExp(str1.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g,"\\$&"),(ignore?"gi":"g")),(typeof(str2)=="string")?str2.replace(/\$/g,"$$$$"):str2);
+} 
