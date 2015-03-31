@@ -16,7 +16,7 @@ describe("Set Font size and ensure its removed properly", function(){
   // Select all text
   // Set it to size 12
 
-  it("Option select is changed when size is changed", function(done) {
+  it("Changes from Size 12 to 18 and back to 12", function(done) {
     this.timeout(60000);
     var chrome$ = helper.padChrome$;
     var inner$ = helper.padInner$;
