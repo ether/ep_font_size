@@ -60,7 +60,7 @@ exports.stylesForExport = function(hook, padId, cb){
 
 // Add the props to be supported in export
 exports.exportHtmlAdditionalTags = function(hook, pad, cb){
-  cb(sizes);
+  cb();
 };
 
 
