@@ -60,7 +60,7 @@ exports.stylesForExport = function(hook, padId, cb){
 
 // Add the props to be supported in export
 exports.exportHtmlAdditionalTags = function(hook, pad, cb){
-  cb();
+  cb(sizes);
 };
 
 
@@ -74,7 +74,8 @@ exports.getLineHTMLForExport = function (hook, context) {
     lineContent = lineContent.replace("<fs"+size, "<span style='font-size:"+size+"px'");
     lineContent = lineContent.replace("</fs"+size, "</span");
   });
-  return lineContent;
+  context.lineContent = lineContent;
+  return true;
 }
 
 
