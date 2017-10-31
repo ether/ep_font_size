@@ -71,16 +71,10 @@ exports.getLineHTMLForExport = function (hook, context) {
   var lineContent = context.lineContent;
   sizes.forEach(function(size){
     size = size.replace("fs","");
-    lineContent = lineContent.replace("<fs"+size, "<span style='font-size:"+size+"px'");
-    lineContent = lineContent.replace("</fs"+size, "</span");
+    context.lineContent = context.lineContent.replace("<fs"+size, "<span style='font-size:"+size+"px'");
+    context.lineContent = context.lineContent.replace("</fs"+size, "</span");
   });
-  context.lineContent = lineContent;
   return true;
-}
-
-
-exports.asyncLineHTMLForExport = function (hook, context, cb) {
-  cb(rewriteLine);
 }
 
 function rewriteLine(context){
