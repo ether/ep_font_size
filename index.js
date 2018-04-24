@@ -70,26 +70,9 @@ exports.exportHtmlAdditionalTags = function(hook, pad, cb){
 exports.getLineHTMLForExport = function (hook, context) {
   var lineContent = context.lineContent;
   sizes.forEach(function(size){
-    size = size.replace("fs","");
-    context.lineContent = context.lineContent.replace("<fs"+size, "<span style='font-size:"+size+"px'");
-    context.lineContent = context.lineContent.replace("</fs"+size, "</span");
+    size = size.replace('fs','');
+    context.lineContent = context.lineContent.replace('<fs' + size, '<span class="fs' + size + '" style="font-size:' + size + 'px"');
+    context.lineContent = context.lineContent.replace('</fs' + size, '</span');
   });
   return true;
 }
-
-function rewriteLine(context){
-  var lineContent = context.lineContent;
-  sizes.forEach(function(size){
-    size = size.replace("fs","");
-    if(lineContent){
-      lineContent = lineContent.replaceAll("<fs"+size, "<span style='font-size:"+size+"px'");
-      lineContent = lineContent.replaceAll("</fs"+size, "</span");
-    }
-  });
-  return lineContent;
-}
-
-String.prototype.replaceAll = function(str1, str2, ignore) 
-{
-  return this.replace(new RegExp(str1.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g,"\\$&"),(ignore?"gi":"g")),(typeof(str2)=="string")?str2.replace(/\$/g,"$$$$"):str2);
-} 
