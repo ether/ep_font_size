@@ -1,4 +1,5 @@
 var eejs = require('ep_etherpad-lite/node/eejs/');
+var Security = require('ep_etherpad-lite/static/js/security');
 var sizes = ["fs8", "fs9", "fs10", "fs11", "fs12", "fs13", "fs14", "fs15", "fs16", "fs17", "fs18", "fs19", "fs20"];
 
 /******************** 
@@ -70,7 +71,7 @@ exports.exportHtmlAdditionalTags = function(hook, pad, cb){
 exports.getLineHTMLForExport = function (hook, context) {
   var lineContent = context.lineContent;
   sizes.forEach(function(size){
-    size = size.replace('fs','');
+    size = Security.escapeHTML(size.replace('fs',''));
     context.lineContent = context.lineContent.replace('<fs' + size, '<span class="fs' + size + '" style="font-size:' + size + 'px"');
     context.lineContent = context.lineContent.replace('</fs' + size, '</span');
   });
