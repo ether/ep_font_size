@@ -1,9 +1,9 @@
 var eejs = require('ep_etherpad-lite/node/eejs/');
-var sizes = ["fs8", "fs9", "fs10", "fs11", "fs12", "fs13", "fs14", "fs15", "fs16", "fs17", "fs18", "fs19", "fs20"];
+var sizes = ["fs8", "fs9", "fs10", "fs11", "fs12", "fs13", "fs14", "fs15", "fs16", "fs17", "fs18", "fs19", "fs20", "fs22", "fs24", "fs26", "fs28", "fs30", "fs35", "fs40", "fs45", "fs50", "fs60"];
 
-/******************** 
-* UI 
-*/ 
+/********************
+* UI
+*/
 exports.eejsBlock_editbarMenuLeft = function (hook_name, args, cb) {
   args.content = args.content + eejs.require("ep_font_size/templates/editbarButtons.ejs");
   return cb();
@@ -15,11 +15,11 @@ exports.eejsBlock_dd_format = function (hook_name, args, cb) {
 }
 
 
-/******************** 
+/********************
 * Editor
 */
 
-// Allow <whatever> to be an attribute 
+// Allow <whatever> to be an attribute
 exports.aceAttribClasses = function(hook_name, attr, cb){
   attr.fs8  = 'tag:fs8';
   attr.fs9  = 'tag:fs9';
@@ -34,10 +34,19 @@ exports.aceAttribClasses = function(hook_name, attr, cb){
   attr.fs18 = 'tag:fs18';
   attr.fs19 = 'tag:fs19';
   attr.fs20 = 'tag:fs20';
+  attr.fs22 = 'tag:fs22';
+  attr.fs24 = 'tag:fs24';
+  attr.fs26 = 'tag:fs26';
+  attr.fs28 = 'tag:fs28';
+  attr.fs30 = 'tag:fs30';
+  attr.fs35 = 'tag:fs35';
+  attr.fs40 = 'tag:fs40';
+  attr.fs45 = 'tag:fs45';
+  attr.fs50 = 'tag:fs50';
+  attr.fs60 = 'tag:fs60';
   cb(attr);
 }
-
-/******************** 
+/********************
 * Export
 */
 // Include CSS for HTML export
@@ -54,7 +63,17 @@ exports.stylesForExport = function(hook, padId, cb){
    "fs17{font-size:17px;}"+
    "fs18{font-size:18px;}"+
    "fs19{font-size:19px;}"+
-   "fs20{font-size:20px;}"
+   "fs20{font-size:20px;}"+
+   "fs22{font-size:22px;}"+
+   "fs24{font-size:24px;}"+
+   "fs26{font-size:26px;}"+
+   "fs28{font-size:28px;}"+
+   "fs30{font-size:30px;}"+
+   "fs35{font-size:35px;}"+
+   "fs40{font-size:40px;}"+
+   "fs45{font-size:45px;}"+
+   "fs50{font-size:50px;}"+
+   "fs60{font-size:60px;}"
   cb(css);
 };
 
@@ -94,7 +113,7 @@ function rewriteLine(context){
   return lineContent;
 }
 
-String.prototype.replaceAll = function(str1, str2, ignore) 
+String.prototype.replaceAll = function(str1, str2, ignore)
 {
   return this.replace(new RegExp(str1.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g,"\\$&"),(ignore?"gi":"g")),(typeof(str2)=="string")?str2.replace(/\$/g,"$$$$"):str2);
-} 
+}
