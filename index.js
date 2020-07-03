@@ -49,59 +49,13 @@ exports.aceAttribClasses = function(hook_name, attr, cb){
 /********************
 * Export
 */
-// Include CSS for HTML export
-exports.stylesForExport = function(hook, padId, cb){
-  var css = "fs8{font-size:8px};"+
-   "fs9{font-size:9px};"+
-   "fs10{font-size:10px;}"+
-   "fs11{font-size:11px;}"+
-   "fs12{font-size:12px;}"+
-   "fs13{font-size:13px;}"+
-   "fs14{font-size:14px;}"+
-   "fs15{font-size:15px;}"+
-   "fs16{font-size:16px;}"+
-   "fs17{font-size:17px;}"+
-   "fs18{font-size:18px;}"+
-   "fs19{font-size:19px;}"+
-   "fs20{font-size:20px;}"+
-   "fs22{font-size:22px;}"+
-   "fs24{font-size:24px;}"+
-   "fs26{font-size:26px;}"+
-   "fs28{font-size:28px;}"+
-   "fs30{font-size:30px;}"+
-   "fs35{font-size:35px;}"+
-   "fs40{font-size:40px;}"+
-   "fs45{font-size:45px;}"+
-   "fs50{font-size:50px;}"+
-   "fs60{font-size:60px;}"
-  cb(css);
-};
 
 // Add the props to be supported in export
 exports.exportHtmlAdditionalTags = function(hook, pad, cb){
   cb(sizes);
 };
 
-/*
-// This doesn't feel write.....
-// We change <fs*>into <span style="font-size:*px> and </fs* into </....
-// This is a fix for https://github.com/ether/etherpad-lite/issues/2485
-exports.getLineHTMLForExport = function (hook, context) {
-  var lineContent = context.lineContent;
-  sizes.forEach(function(size){
-    size = size.replace("fs","");
-    lineContent = lineContent.replace("<fs"+size, "<span style='font-size:"+size+"px'");
-    lineContent = lineContent.replace("</fs"+size, "</span");
-  });
-  return lineContent;
-}
-*/
-
-exports.asyncLineHTMLForExport = function (hook, context, cb) {
-  cb(rewriteLine);
-}
-
-function rewriteLine(context){
+exports.getLineHTMLForExport  = function (hook, context, cb) {
   var lineContent = context.lineContent;
   sizes.forEach(function(size){
     size = size.replace("fs","");
@@ -110,7 +64,7 @@ function rewriteLine(context){
       lineContent = lineContent.replaceAll("</fs"+size, "</span");
     }
   });
-  return lineContent;
+  context.lineContent = lineContent;
 }
 
 String.prototype.replaceAll = function(str1, str2, ignore)

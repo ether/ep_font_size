@@ -18,9 +18,8 @@
         "collectContentPost": "ep_font_size/static/js/shared",
         "eejsBlock_dd_format":"ep_font_size/index",
         "aceAttribClasses":"ep_font_size/index",
-        "stylesForExport" : "ep_font_size/index",
         "exportHtmlAdditionalTags" : "ep_font_size/index",
-        "asyncLineHTMLForExport": "ep_font_size/index"
+        "getLineHTMLForExport": "ep_font_size/index"
       }
     }
   ]
