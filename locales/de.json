@@ -1,3 +1,4 @@
 {
-  "ep_font_size.size" : "Schriftgröße"
+  "ep_font_size.size" : "Schriftgröße",
+  "ep_font_size.toolbar.font_size.title": "Schriftgröße"
 }

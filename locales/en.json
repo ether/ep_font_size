@@ -1,3 +1,4 @@
 {
-  "ep_font_size.size" : "Font Size"
+  "ep_font_size.size" : "Font Size",
+  "ep_font_size.toolbar.font_size.title": "Font Size"
 }
