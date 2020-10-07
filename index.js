@@ -51,11 +51,9 @@ exports.aceAttribClasses = function(hook_name, attr, cb){
 */
 
 // Add the props to be supported in export
-exports.exportHtmlAdditionalTags = function(hook, pad, cb){
-  cb(sizes);
-};
+exports.exportHtmlAdditionalTags = async (hookName, pad) => sizes;
 
-exports.getLineHTMLForExport  = function (hook, context, cb) {
+exports.getLineHTMLForExport = async (hookName, context) => {
   var lineContent = context.lineContent;
   sizes.forEach(function(size){
     size = size.replace("fs","");
@@ -65,7 +63,7 @@ exports.getLineHTMLForExport  = function (hook, context, cb) {
     }
   });
   context.lineContent = lineContent;
-}
+};
 
 String.prototype.replaceAll = function(str1, str2, ignore)
 {
