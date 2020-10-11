@@ -1,4 +1,4 @@
-exports.collectContentPre = function(hook, context){
+exports.collectContentPre = (hookName, context, cb) => {
   var tname = context.tname;
   var state = context.state;
   var lineAttributes = state.lineAttributes
@@ -7,10 +7,11 @@ exports.collectContentPre = function(hook, context){
   if(fs.indexOf(tname) !== -1){
     context.cc.doAttrib(state, tname);
   }
+  return cb();
 };
 
 // never seems to be run
-exports.collectContentPost = function(hook, context){
+exports.collectContentPost = (hookName, context, cb) => {
   var tname = context.tname;
   var state = context.state;
   var lineAttributes = state.lineAttributes
@@ -19,4 +20,5 @@ exports.collectContentPost = function(hook, context){
   if(tagIndex >= 0){
     delete lineAttributes['sub'];
   }
+  return cb();
 };
