@@ -1,3 +1,6 @@
 {
-  "ep_font_size.size" : "Textstorlek"
+	"@metadata": {
+		"authors": []
+	},
+	"ep_font_size.size": "Textstorlek"
 }

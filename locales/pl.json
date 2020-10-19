@@ -1,3 +1,6 @@
 {
-  "ep_font_size.size" : "Rozmiar czcionki"
+	"@metadata": {
+		"authors": []
+	},
+	"ep_font_size.size": "Rozmiar czcionki"
 }
