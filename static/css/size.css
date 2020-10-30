@@ -1,13 +1,27 @@
 /*
-const sizes = ["fs8", "fs9", "fs10", "fs11", "fs12", "fs13", "fs14", "fs15", "fs16", "fs17", "fs18", "fs19", "fs20", "fs22", "fs24", "fs26", "fs28", "fs30", "fs35", "fs40", "fs45", "fs50", "fs60"];
+"8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "22", "24", "26", "28", "30", "35", "40", "45", "50", "60"
 */
-
-[data-size="black"], .size\:black  { size:black; }
-[data-size="red"], .size\:red    { size:red; }
-[data-size="green"], .size\:green  { size:green; }
-[data-size="blue"], .size\:blue   { size:blue; }
-[data-size="yellow"], .size\:yellow { size:yellow; }
-[data-size="orange"], .size\:orange { size:orange; }
 
 [data-size="8"], .size\:8  { font-size:8px; }
 [data-size="9"], .size\:9  { font-size:9px; }
+[data-size="10"], .size\:10  { font-size:10px; }
+[data-size="11"], .size\:11  { font-size:11px; }
+[data-size="12"], .size\:12  { font-size:12px; }
+[data-size="13"], .size\:13  { font-size:13px; }
+[data-size="14"], .size\:14  { font-size:14px; }
+[data-size="15"], .size\:15  { font-size:15px; }
+[data-size="16"], .size\:16  { font-size:16px; }
+[data-size="17"], .size\:17  { font-size:17px; }
+[data-size="18"], .size\:18  { font-size:18px; }
+[data-size="19"], .size\:19  { font-size:19px; }
+[data-size="20"], .size\:20  { font-size:20px; }
+[data-size="22"], .size\:22  { font-size:22px; }
+[data-size="24"], .size\:24  { font-size:24px; }
+[data-size="26"], .size\:26  { font-size:26px; }
+[data-size="28"], .size\:28  { font-size:28px; }
+[data-size="30"], .size\:30  { font-size:30px; }
+[data-size="35"], .size\:35  { font-size:35px; }
+[data-size="40"], .size\:40  { font-size:40px; }
+[data-size="45"], .size\:45  { font-size:45px; }
+[data-size="50"], .size\:50  { font-size:50px; }
+[data-size="60"], .size\:60  { font-size:60px; }

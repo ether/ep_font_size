@@ -6,7 +6,7 @@ var cssFiles = ["ep_font_size/static/css/size.css"];
 
 // All our sizes are block elements, so we just return them.
 // var sizes = ['black', 'red', 'green', 'blue', 'yellow', 'orange'];
-var sizes = ["8", "9", "fs10", "fs11", "fs12", "fs13", "fs14", "fs15", "fs16", "fs17", "fs18", "fs19", "fs20", "fs22", "fs24", "fs26", "fs28", "fs30", "fs35", "fs40", "fs45", "fs50", "fs60"];
+var sizes = ["8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "22", "24", "26", "28", "30", "35", "40", "45", "50", "60"];
 
 // Bind the event handler to the toolbar buttons
 var postAceInit = function(hook, context){
