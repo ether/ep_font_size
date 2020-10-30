@@ -5,7 +5,6 @@ var _ = require('ep_etherpad-lite/static/js/underscore');
 var cssFiles = ["ep_font_size/static/css/size.css"];
 
 // All our sizes are block elements, so we just return them.
-// var sizes = ['black', 'red', 'green', 'blue', 'yellow', 'orange'];
 var sizes = ["8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "22", "24", "26", "28", "30", "35", "40", "45", "50", "60"];
 
 // Bind the event handler to the toolbar buttons
@@ -24,28 +23,25 @@ var postAceInit = function(hook, context){
   $('.font_size').hover(function(){
     $('.submenu > .size-selection').attr('size', 6);
   });
-  $('.font-size-icon').click(function(){
-    $('#font-size').toggle();
-  });
 };
 
 // Our sizes attribute will result in a size:red... _yellow class
 function aceAttribsToClasses(hook, context){
   if(context.key.indexOf("size:") !== -1){
-    var size = /(?:^| )size:([A-Za-z0-9]*)/.exec(context.key);
-    return ['size:' + size[1] ];
+    var size = /(?:^| )font-size:([A-Za-z0-9]*)/.exec(context.key);
+    return ['font-size:' + size[1] ];
   }
-  if(context.key == 'size'){
-    return ['size:' + context.value ];
+  if(context.key == 'font-size'){
+    return ['font-size:' + context.value ];
   }
 }
 
 
-// Here we convert the class size:red into a tag
+// Here we convert the class size:8 into a tag
 exports.aceCreateDomLine = function(name, context){
   var cls = context.cls;
   var domline = context.domline;
-  var sizesType = /(?:^| )size:([A-Za-z0-9]*)/.exec(cls);
+  var sizesType = /(?:^| )font-size:([A-Za-z0-9]*)/.exec(cls);
 
   var tagIndex;
   if (sizesType) tagIndex = _.indexOf(sizes, sizesType[1]);
@@ -74,9 +70,9 @@ function doInsertsizes(level){
     return;
   }
 
-  var new_size = ["size", ""];
+  var new_size = ["font-size", ""];
   if(level >= 0) {
-    new_size = ["size", sizes[level]];
+    new_size = ["font-size", sizes[level]];
   }
 
   documentAttributeManager.setAttributesOnRange(rep.selStart, rep.selEnd, [new_size]);

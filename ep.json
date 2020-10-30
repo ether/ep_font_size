@@ -17,7 +17,8 @@
         "exportHtmlAdditionalTagsWithData": "ep_font_size/exportHTML",
         "stylesForExport": "ep_font_size/exportHTML",
         "getLineHTMLForExport": "ep_font_size/exportHTML",
-        "eejsBlock_dd_format":"ep_font_size/index"
+        "eejsBlock_dd_format":"ep_font_size/index",
+        "eejsBlock_timesliderStyles":"ep_font_size/index"
       }
     }
   ]
