@@ -1,16 +1,13 @@
 {
-  "description": "Add support for Font Sizes",
+  "description": "Apply sizes to fonts",
   "name": "ep_font_size",
-  "version": "0.3.15",
+  "version": "0.0.21",
   "license": "Apache-2.0",
   "author": {
     "name": "John McLear",
     "email": "john@mclear.co.uk"
   },
   "dependencies": {},
-  "peerDependencies": {
-    "ep_etherpad-lite": ">=1.5.1"
-  },
   "engines": {
     "node": "*"
   },

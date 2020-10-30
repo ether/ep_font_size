@@ -12,11 +12,11 @@ describe("Set Font size and ensure its removed properly", function(){
 
   // Create Pad
   // Select all text
-  // Set it to size 18
+  // Set it to size 9
   // Select all text
-  // Set it to size 12
+  // Set it to size 8
 
-  it("Changes from Size 12 to 18 and back to 12", function(done) {
+  it("Changes from size 8 to 9 and back to 8", function(done) {
     this.timeout(60000);
     var chrome$ = helper.padChrome$;
     var inner$ = helper.padInner$;
@@ -27,35 +27,29 @@ describe("Set Font size and ensure its removed properly", function(){
     var $editorContents = inner$("div")
     $firstTextElement.sendkeys('foo');
     $firstTextElement.sendkeys('{selectall}');
-    
-    // Show the select
-    chrome$('.font-size-icon').click();
 
-    // sets first line to Font size 18
-    chrome$('.size-selection').val('fs18');
+    // sets first line to Font size 9
+    chrome$('.size-selection').val("1");
     chrome$('.size-selection').change();
 
     var fElement = inner$("div").first();
-
     helper.waitFor(function(){
-      var elementName = fElement.children().first().children().last()[0].localName;
-      expect(elementName).to.be("fs18");
-      return elementName == "fs18";
+      let elementHasClass = fElement.children().first().hasClass("size:9");
+      return expect(elementHasClass).to.be(true);
     }).done(function(){
       $firstTextElement = inner$("div").first();
       $firstTextElement.sendkeys('{selectall}');
-      // sets first line to Font size 12
-      chrome$('.size-selection').val('fs12');
+      // sets first line to Font size 8
+      chrome$('.size-selection').val('0');
       chrome$('.size-selection').change();
       helper.waitFor(function(){
-        var fElement = inner$("div").first();
-        var elementName = fElement.children().first().children().last()[0].localName;
-        expect(elementName).to.be("fs12");
-        return elementName == "fs12";
+        fElement = inner$("div").first();
+        let elementHasClass = fElement.children().first().hasClass("size:8");
+        return expect(elementHasClass).to.be(true);
       }).done(function(){
         done();
       });
     });
-
   });
 });
+
