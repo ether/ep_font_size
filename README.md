@@ -4,7 +4,7 @@
 A simple plugin that allows the user to change the font size of a selection of text
 
 ## Example animated gif of usage if appropriate
-[!screenshot](https://user-images.githubusercontent.com/220864/97743889-3c337800-1ade-11eb-8f08-5587f63ceab7.png)
+![screenshot](https://user-images.githubusercontent.com/220864/97743889-3c337800-1ade-11eb-8f08-5587f63ceab7.png)
 
 ## Installing
 npm install ep_font_size
