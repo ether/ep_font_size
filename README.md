@@ -1,4 +1,4 @@
-[![Travis (.org)](https://api.travis-ci.org/JohnMcLear/ep_font_size.git.svg?branch=develop)](https://travis-ci.org/github/JohnMcLear/ep_font_size.git)
+[![Travis (.com)](https://api.travis-ci.com/ether/ep_font_size.git.svg?branch=develop)](https://travis-ci.com/github/ether/ep_font_size.git)
 
 # Change Font Size in Etherpad
 
