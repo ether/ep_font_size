@@ -15,7 +15,6 @@ or Use the Etherpad ``/admin`` interface.
 No settings available.
 
 ## Testing
-Document how to run backend / frontend tests.
 
 ### Frontend
 
