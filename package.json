@@ -1,7 +1,7 @@
 {
   "description": "Add support for Font Sizes",
   "name": "ep_font_size",
-  "version": "0.3.13",
+  "version": "0.3.14",
   "license": "Apache-2.0",
   "author": {
     "name": "John McLear",
