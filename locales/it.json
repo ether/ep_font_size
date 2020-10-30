@@ -4,11 +4,5 @@
 			"Beta16"
 		]
 	},
-	"ep_font_size.size": "sizee",
-	"ep_font_size.black": "nero",
-	"ep_font_size.red": "rosso",
-	"ep_font_size.green": "verde",
-	"ep_font_size.blue": "blu",
-	"ep_font_size.yellow": "giallo",
-	"ep_font_size.orange": "arancione"
+	"ep_font_size.size": "Dimensione carattere"
 }

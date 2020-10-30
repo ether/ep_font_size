@@ -1,15 +1,6 @@
 {
 	"@metadata": {
-		"authors": [
-			"Aranka",
-			"woeterman_94"
-		]
+		"authors": []
 	},
-	"ep_font_size.size": "Kleur",
-	"ep_font_size.black": "zwart",
-	"ep_font_size.red": "rood",
-	"ep_font_size.green": "groen",
-	"ep_font_size.blue": "blauw",
-	"ep_font_size.yellow": "geel",
-	"ep_font_size.orange": "oranje"
+	"ep_font_size.size": "Lettergrootte"
 }

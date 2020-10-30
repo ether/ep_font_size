@@ -2,11 +2,5 @@
 	"@metadata": {
 		"authors": []
 	},
-	"ep_font_size.size": "Szín",
-	"ep_font_size.black": "fekete",
-	"ep_font_size.red": "piros",
-	"ep_font_size.green": "zöld",
-	"ep_font_size.blue": "kék",
-	"ep_font_size.yellow": "sárga",
-	"ep_font_size.orange": "narancssárga"
+	"ep_font_size.size": "Betűméret"
 }

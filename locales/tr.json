@@ -4,11 +4,5 @@
 			"MuratTheTurkish"
 		]
 	},
-	"ep_font_size.size": "Renk",
-	"ep_font_size.black": "siyah",
-	"ep_font_size.red": "kırmızı",
-	"ep_font_size.green": "yeşil",
-	"ep_font_size.blue": "mavi",
-	"ep_font_size.yellow": "sarı",
-	"ep_font_size.orange": "turuncu"
+	"ep_font_size.size": "Yazı Tipi Boyutu"
 }

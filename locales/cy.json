@@ -4,11 +4,5 @@
 			"Robin Owain"
 		]
 	},
-	"ep_font_size.size": "Lliw",
-	"ep_font_size.black": "du",
-	"ep_font_size.red": "coch",
-	"ep_font_size.green": "gwyrdd",
-	"ep_font_size.blue": "glas",
-	"ep_font_size.yellow": "melyn",
-	"ep_font_size.orange": "oren"
+	"ep_font_size.size": "Maint y Ffont"
 }

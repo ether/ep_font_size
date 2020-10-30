@@ -4,11 +4,5 @@
 			"Megakott"
 		]
 	},
-	"ep_font_size.size": "Цвет",
-	"ep_font_size.black": "чёрный",
-	"ep_font_size.red": "красный",
-	"ep_font_size.green": "зелёный",
-	"ep_font_size.blue": "синий",
-	"ep_font_size.yellow": "жёлтый",
-	"ep_font_size.orange": "оранжевый"
+	"ep_font_size.size": "Размер шрифта"
 }

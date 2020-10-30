@@ -2,11 +2,5 @@
 	"@metadata": {
 		"authors": []
 	},
-	"ep_font_size.size": "Färg",
-	"ep_font_size.black": "svart",
-	"ep_font_size.red": "röd",
-	"ep_font_size.green": "grön",
-	"ep_font_size.blue": "blå",
-	"ep_font_size.yellow": "gul",
-	"ep_font_size.orange": "orange"
+	"ep_font_size.size": "Textstorlek"
 }

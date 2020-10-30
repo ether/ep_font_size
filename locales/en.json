@@ -1,9 +1,3 @@
 {
-  "ep_font_size.size" : "size",
-  "ep_font_size.black" : "black",
-  "ep_font_size.red" : "red",
-  "ep_font_size.green" : "green",
-  "ep_font_size.blue" : "blue",
-  "ep_font_size.yellow" : "yellow",
-  "ep_font_size.orange" : "orange"
+  "ep_font_size.size" : "Font Size"
 }
