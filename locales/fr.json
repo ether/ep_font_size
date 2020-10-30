@@ -2,5 +2,11 @@
 	"@metadata": {
 		"authors": []
 	},
-	"ep_font_size.size": "Taille"
+	"ep_font_size.size": "Couleurs",
+	"ep_font_size.black": "noir",
+	"ep_font_size.red": "rouge",
+	"ep_font_size.green": "vert",
+	"ep_font_size.blue": "bleu",
+	"ep_font_size.yellow": "jaune",
+	"ep_font_size.orange": "orange"
 }

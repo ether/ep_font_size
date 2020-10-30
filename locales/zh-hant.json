@@ -4,5 +4,11 @@
 			"Kly"
 		]
 	},
-	"ep_font_size.size": "字型大小"
+	"ep_font_size.size": "顏色",
+	"ep_font_size.black": "黑",
+	"ep_font_size.red": "紅",
+	"ep_font_size.green": "綠",
+	"ep_font_size.blue": "藍",
+	"ep_font_size.yellow": "黃",
+	"ep_font_size.orange": "橙"
 }

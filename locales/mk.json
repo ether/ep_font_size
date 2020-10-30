@@ -4,5 +4,11 @@
 			"Bjankuloski06"
 		]
 	},
-	"ep_font_size.size": "Големина на фонтот"
+	"ep_font_size.size": "Боја",
+	"ep_font_size.black": "црна",
+	"ep_font_size.red": "црвена",
+	"ep_font_size.green": "зелена",
+	"ep_font_size.blue": "сина",
+	"ep_font_size.yellow": "жолта",
+	"ep_font_size.orange": "портокалова"
 }

@@ -4,5 +4,11 @@
 			"Mrkczr"
 		]
 	},
-	"ep_font_size.size": "Sukat ng titik"
+	"ep_font_size.size": "Kulay",
+	"ep_font_size.black": "itim",
+	"ep_font_size.red": "pula",
+	"ep_font_size.green": "berde",
+	"ep_font_size.blue": "asul",
+	"ep_font_size.yellow": "dilaw",
+	"ep_font_size.orange": "kahel"
 }

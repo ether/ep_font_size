@@ -1,8 +1,12 @@
 {
 	"@metadata": {
-		"authors": [
-			"Eduardo Addad de Oliveira"
-		]
+		"authors": []
 	},
-	"ep_font_size.size": "Tamanho da fonte"
+	"ep_font_size.size": "Cor",
+	"ep_font_size.black": "preto",
+	"ep_font_size.red": "vermelho",
+	"ep_font_size.green": "verde",
+	"ep_font_size.blue": "azul",
+	"ep_font_size.yellow": "amarelo",
+	"ep_font_size.orange": "laranja"
 }

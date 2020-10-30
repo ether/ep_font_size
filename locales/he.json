@@ -4,5 +4,11 @@
 			"YaronSh"
 		]
 	},
-	"ep_font_size.size": "גודל גופן"
+	"ep_font_size.size": "צבע",
+	"ep_font_size.black": "שחור",
+	"ep_font_size.red": "אדום",
+	"ep_font_size.green": "ירוק",
+	"ep_font_size.blue": "כחול",
+	"ep_font_size.yellow": "צהוב",
+	"ep_font_size.orange": "כתום"
 }

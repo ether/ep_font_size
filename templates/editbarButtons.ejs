@@ -1,51 +1,31 @@
 <li class="separator acl-write"></li>
-<div>
 <li class="acl-write font-size-icon ep_font_size">
-  <a title="Font Size">
+  <a title="Font size">
     <span class="buttonicon"></span>
   </a>
 </li>
 <li id="font-size" class="acl-write" style="display:none;">
     <select class="size-selection">
-        <option value="dummy" selected data-l10n-id="ep_font_size.size">Size</option>
-        <option value="fs8">8</option>
-        <option value="fs9">9</option>
-        <option value="fs10">10</option>
-        <option value="fs11">11</option>
-        <option value="fs12">12</option>
-        <option value="fs13">13</option>
-        <option value="fs14">14</option>
-        <option value="fs15">15</option>
-        <option value="fs16">16</option>
-        <option value="fs17">17</option>
-        <option value="fs18">18</option>
-        <option value="fs19">19</option>
-        <option value="fs20">20</option>
-        <option value="fs22">22</option>
-        <option value="fs24">24</option>
-        <option value="fs26">26</option>
-        <option value="fs28">28</option>
-        <option value="fs30">30</option>
-        <option value="fs35">35</option>
-        <option value="fs40">40</option>
-        <option value="fs45">45</option>
-        <option value="fs50">50</option>
-        <option value="fs60">60</option>
+      <!--
+        <option value="dummy" selected data-l10n-id="ep_font_size.size">size</option>
+        <option value="0" data-l10n-id="ep_font_size.black">black</option>
+        <option value="1" data-l10n-id="ep_font_size.red">red</option>
+        <option value="2" data-l10n-id="ep_font_size.green">green</option>
+        <option value="3" data-l10n-id="ep_font_size.blue">blue</option>
+        <option value="4" data-l10n-id="ep_font_size.yellow">yellow</option>
+        <option value="5" data-l10n-id="ep_font_size.orange">orange</option>
+        -->
+        <option value="0" data-l10n-id="ep_font_size.8">8</option>
     </select>
 </li>
-</div>
 
 <style>
 .ep_font_size {
-  font-size:font-awesome;
+  font-family:font-awesome;
 }
-.ep_font_size > a > .buttonicon:before{
-  content:"\e81f";
+.ep_font_size .buttonicon:before{
+  content:"\e81b";
   top: 2px !important;
+  border-bottom:solid 1px red;
 }
-.size-selection{
-  margin-left:-3px;
-  border-radius: 0 3px 3px 0 !important;
-}
-
 </style>

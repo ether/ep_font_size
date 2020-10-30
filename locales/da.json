@@ -4,5 +4,11 @@
 			"Saederup92"
 		]
 	},
-	"ep_font_size.size": "Skriftstørrelse"
+	"ep_font_size.size": "Farve",
+	"ep_font_size.black": "sort",
+	"ep_font_size.red": "rød",
+	"ep_font_size.green": "grøn",
+	"ep_font_size.blue": "blue",
+	"ep_font_size.yellow": "gul",
+	"ep_font_size.orange": "orange"
 }

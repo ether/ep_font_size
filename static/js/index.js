@@ -1,27 +1,26 @@
-var $, jQuery;
-var $ = require('ep_etherpad-lite/static/js/rjquery').$;
-var fs = (["fs8", "fs9", "fs10", "fs11", "fs12", "fs13", "fs14", "fs15", "fs16", "fs17", "fs18", "fs19", "fs20", "fs22", "fs24", "fs26", "fs28", "fs30", "fs35", "fs40", "fs45", "fs50", "fs60"]);
+var _, $, jQuery;
 
-/*****
-* Basic setup
-******/
+var $ = require('ep_etherpad-lite/static/js/rjquery').$;
+var _ = require('ep_etherpad-lite/static/js/underscore');
+var cssFiles = ["ep_font_size/static/css/size.css"];
+
+// All our sizes are block elements, so we just return them.
+// var sizes = ['black', 'red', 'green', 'blue', 'yellow', 'orange'];
+var sizes = ["8", "9", "fs10", "fs11", "fs12", "fs13", "fs14", "fs15", "fs16", "fs17", "fs18", "fs19", "fs20", "fs22", "fs24", "fs26", "fs28", "fs30", "fs35", "fs40", "fs45", "fs50", "fs60"];
 
 // Bind the event handler to the toolbar buttons
-exports.postAceInit = function(hook, context){
-  var fontSize = $('.size-selection');
-  fontSize.on('change', function(){
+var postAceInit = function(hook, context){
+  var hs = $('.size-selection');
+  hs.on('change', function(){
     var value = $(this).val();
-    context.ace.callWithAce(function(ace){
-      // remove all other attrs
-      $.each(fs, function(k, v){
-        ace.ace_setAttributeOnSelection(v, false);
-      });
-      ace.ace_setAttributeOnSelection(value, true);
-    },'insertfontsize' , true);
+    var intValue = parseInt(value,10);
+    if(!_.isNaN(intValue)){
+      context.ace.callWithAce(function(ace){
+        ace.ace_doInsertsizes(intValue);
+      },'insertsize' , true);
+      hs.val("dummy");
+    }
   })
-  $('.ep_font_size').click(function(){
-    var size = $(this).data("size");
-  });
   $('.font_size').hover(function(){
     $('.submenu > .size-selection').attr('size', 6);
   });
@@ -30,72 +29,73 @@ exports.postAceInit = function(hook, context){
   });
 };
 
-// To do show what font size is active on current selection
-exports.aceEditEvent = function(hook, call, cb){
-  var cs = call.callstack;
-
-  if(!(cs.type == "handleClick") && !(cs.type == "handleKeyEvent") && !(cs.docTextChanged)){
-    return false;
+// Our sizes attribute will result in a size:red... _yellow class
+function aceAttribsToClasses(hook, context){
+  if(context.key.indexOf("size:") !== -1){
+    var size = /(?:^| )size:([A-Za-z0-9]*)/.exec(context.key);
+    return ['size:' + size[1] ];
   }
-
-  // If it's an initial setup event then do nothing..
-  if(cs.type == "setBaseText" || cs.type == "setup") return false;
-  // It looks like we should check to see if this section has this attribute
-  setTimeout(function(){ // avoid race condition..
-
-    $('.size-selection').val("dummy"); // reset value to the dummy value
-
-    // Attribtes are never available on the first X caret position so we need to ignore that
-    if(call.rep.selStart[1] === 0){
-      // Attributes are never on the first line
-      return;
-    }
-    // The line has an attribute set, this means it wont get hte correct X caret position
-    if(call.rep.selStart[1] === 1){
-      if(call.rep.alltext[0] === "*"){
-        // Attributes are never on the "first" character of lines with attributes
-        return;
-      }
-    }
-    // the caret is in a new position.. Let's do some funky shit
-    $('.subscript > a').removeClass('activeButton');
-    $.each(fs, function(k,v){
-      if ( call.editorInfo.ace_getAttributeOnSelection(v) ) {
-        // show the button as being depressed.. Not sad, but active..
-        $('.size-selection').val(v);
-      }
-    });
-  },250);
-}
-
-/*****
-* Editor setup
-******/
-
-// Our fontsize attribute will result in a class
-// I'm not sure if this is actually required..
-exports.aceAttribsToClasses = function(hook, context){
-  if(fs.indexOf(context.key) !== -1){
-    return [context.key];
+  if(context.key == 'size'){
+    return ['size:' + context.value ];
   }
 }
 
-// Block elements
-// I'm not sure if this is actually required..
-exports.aceRegisterBlockElements = function(){
-  return fs;
+
+// Here we convert the class size:red into a tag
+exports.aceCreateDomLine = function(name, context){
+  var cls = context.cls;
+  var domline = context.domline;
+  var sizesType = /(?:^| )size:([A-Za-z0-9]*)/.exec(cls);
+
+  var tagIndex;
+  if (sizesType) tagIndex = _.indexOf(sizes, sizesType[1]);
+
+
+  if (tagIndex !== undefined && tagIndex >= 0){
+    var tag = sizes[tagIndex];
+    var modifier = {
+      extraOpenTags: '',
+      extraCloseTags: '',
+      cls: cls
+    };
+    return [modifier];
+  }
+  return [];
+};
+
+
+// Find out which lines are selected and assign them the size attribute.
+// Passing a level >= 0 will set a sizes on the selected lines, level < 0
+// will remove it
+function doInsertsizes(level){
+  var rep = this.rep,
+    documentAttributeManager = this.documentAttributeManager;
+  if (!(rep.selStart && rep.selEnd) || (level >= 0 && sizes[level] === undefined)){
+    return;
+  }
+
+  var new_size = ["size", ""];
+  if(level >= 0) {
+    new_size = ["size", sizes[level]];
+  }
+
+  documentAttributeManager.setAttributesOnRange(rep.selStart, rep.selEnd, [new_size]);
 }
 
-// Register attributes that are html markup / blocks not just classes
-// This should make export export properly IE <sub>helllo</sub>world
-// will be the output and not <span class=sub>helllo</span>
-exports.aceAttribClasses = function(hook, attr){
-  $.each(fs, function(k, v){
-    attr[v] = 'tag:'+v;
-  });
-  return attr;
+
+// Once ace is initialized, we set ace_doInsertsizes and bind it to the context
+function aceInitialized(hook, context){
+  var editorInfo = context.editorInfo;
+  editorInfo.ace_doInsertsizes = _(doInsertsizes).bind(context);
 }
 
-exports.aceEditorCSS = function(hook_name, cb){
-  return ["/ep_font_size/static/css/iframe.css"];
-}
+function aceEditorCSS(){
+  return cssFiles;
+};
+
+
+// Export all hooks
+exports.aceInitialized = aceInitialized;
+exports.postAceInit = postAceInit;
+exports.aceAttribsToClasses = aceAttribsToClasses;
+exports.aceEditorCSS = aceEditorCSS;

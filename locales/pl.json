@@ -2,5 +2,11 @@
 	"@metadata": {
 		"authors": []
 	},
-	"ep_font_size.size": "Rozmiar czcionki"
+	"ep_font_size.size": "Kolor",
+	"ep_font_size.black": "czarny",
+	"ep_font_size.red": "czerwony",
+	"ep_font_size.green": "zielony",
+	"ep_font_size.blue": "niebieski",
+	"ep_font_size.yellow": "żółty",
+	"ep_font_size.orange": "pomarańczowy"
 }
