@@ -5,7 +5,7 @@ var sizes = ["fs8", "fs9", "fs10", "fs11", "fs12", "fs13", "fs14", "fs15", "fs16
 var collectContentPre = function(hook, context){
   var size = /(?:^| )size:([A-Za-z0-9]*)/.exec(context.cls);
   if(size && size[1]){
-    context.cc.doAttrib(context.state, "size::" + size[1]);
+    context.cc.doAttrib(context.state, "size:" + size[1]);
   }
 };
 
