@@ -21,8 +21,7 @@ exports.stylesForExport = async (hookName, padId) => {
 };
 
 exports.getLineHTMLForExport = async (hookName, context) => {
-  // Replace data-size="foo" with class="size:x".
-console.log(context.lineContent);
+  // Replace data-size="foo" with class="font-size:x".
   context.lineContent =
       context.lineContent.replace(/data-font-size=["|']([0-9a-zA-Z]+)["|']/gi, 'class="font-size:$1"');
 };

@@ -8,3 +8,8 @@ exports.eejsBlock_dd_format = function(hook_name, args, cb){
   args.content = args.content + eejs.require("ep_font_size/templates/fileMenu.ejs");
   return cb();
 }
+
+exports.eejsBlock_timesliderStyles = function(hook_name, args, cb){
+  args.content = args.content + '<style>'+eejs.require("ep_font_size/static/css/size.css")+'</style>';
+  return cb();
+}
