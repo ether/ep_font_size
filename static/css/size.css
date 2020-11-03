@@ -1,27 +1,23 @@
-/*
-"8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "22", "24", "26", "28", "30", "35", "40", "45", "50", "60"
-*/
-
-[data-size="8"], .size\:8  { font-size:8px; }
-[data-size="9"], .size\:9  { font-size:9px; }
-[data-size="10"], .size\:10  { font-size:10px; }
-[data-size="11"], .size\:11  { font-size:11px; }
-[data-size="12"], .size\:12  { font-size:12px; }
-[data-size="13"], .size\:13  { font-size:13px; }
-[data-size="14"], .size\:14  { font-size:14px; }
-[data-size="15"], .size\:15  { font-size:15px; }
-[data-size="16"], .size\:16  { font-size:16px; }
-[data-size="17"], .size\:17  { font-size:17px; }
-[data-size="18"], .size\:18  { font-size:18px; }
-[data-size="19"], .size\:19  { font-size:19px; }
-[data-size="20"], .size\:20  { font-size:20px; }
-[data-size="22"], .size\:22  { font-size:22px; }
-[data-size="24"], .size\:24  { font-size:24px; }
-[data-size="26"], .size\:26  { font-size:26px; }
-[data-size="28"], .size\:28  { font-size:28px; }
-[data-size="30"], .size\:30  { font-size:30px; }
-[data-size="35"], .size\:35  { font-size:35px; }
-[data-size="40"], .size\:40  { font-size:40px; }
-[data-size="45"], .size\:45  { font-size:45px; }
-[data-size="50"], .size\:50  { font-size:50px; }
-[data-size="60"], .size\:60  { font-size:60px; }
+[data-font-size="8"], .font-size\:8  { font-size:8px; }
+[data-font-size="9"], .font-size\:9  { font-size:9px; }
+[data-font-size="10"], .font-size\:10  { font-size:10px; }
+[data-font-size="11"], .font-size\:11  { font-size:11px; }
+[data-font-size="12"], .font-size\:12  { font-size:12px; }
+[data-font-size="13"], .font-size\:13  { font-size:13px; }
+[data-font-size="14"], .font-size\:14  { font-size:14px; }
+[data-font-size="15"], .font-size\:15  { font-size:15px; }
+[data-font-size="16"], .font-size\:16  { font-size:16px; }
+[data-font-size="17"], .font-size\:17  { font-size:17px; }
+[data-font-size="18"], .font-size\:18  { font-size:18px; }
+[data-font-size="19"], .font-size\:19  { font-size:19px; }
+[data-font-size="20"], .font-size\:20  { font-size:20px; }
+[data-font-size="22"], .font-size\:22  { font-size:22px; }
+[data-font-size="24"], .font-size\:24  { font-size:24px; }
+[data-font-size="26"], .font-size\:26  { font-size:26px; }
+[data-font-size="28"], .font-size\:28  { font-size:28px; }
+[data-font-size="30"], .font-size\:30  { font-size:30px; }
+[data-font-size="35"], .font-size\:35  { font-size:35px; }
+[data-font-size="40"], .font-size\:40  { font-size:40px; }
+[data-font-size="45"], .font-size\:45  { font-size:45px; }
+[data-font-size="50"], .font-size\:50  { font-size:50px; }
+[data-font-size="60"], .font-size\:60  { font-size:60px; }

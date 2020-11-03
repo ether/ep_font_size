@@ -1,11 +1,11 @@
 var _ = require('ep_etherpad-lite/static/js/underscore');
 
-var sizes = ["fs8", "fs9", "fs10", "fs11", "fs12", "fs13", "fs14", "fs15", "fs16", "fs17", "fs18", "fs19", "fs20", "fs22", "fs24", "fs26", "fs28", "fs30", "fs35", "fs40", "fs45", "fs50", "fs60"];
+var sizes = ["8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "22", "24", "26", "28", "30", "35", "40", "45", "50", "60"];
 
 var collectContentPre = function(hook, context){
-  var size = /(?:^| )size:([A-Za-z0-9]*)/.exec(context.cls);
+  var size = /(?:^| )font-size:([A-Za-z0-9]*)/.exec(context.cls);
   if(size && size[1]){
-    context.cc.doAttrib(context.state, "size:" + size[1]);
+    context.cc.doAttrib(context.state, "font-size:" + size[1]);
   }
 };
 

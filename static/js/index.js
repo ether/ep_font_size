@@ -31,12 +31,12 @@ var postAceInit = function(hook, context){
 
 // Our sizes attribute will result in a size:red... _yellow class
 function aceAttribsToClasses(hook, context){
-  if(context.key.indexOf("size:") !== -1){
-    var size = /(?:^| )size:([A-Za-z0-9]*)/.exec(context.key);
-    return ['size:' + size[1] ];
+  if(context.key.indexOf("font-size:") !== -1){
+    var size = /(?:^| )font-size:([A-Za-z0-9]*)/.exec(context.key);
+    return ['font-size:' + size[1] ];
   }
-  if(context.key == 'size'){
-    return ['size:' + context.value ];
+  if(context.key == 'font-size'){
+    return ['font-size:' + context.value ];
   }
 }
 
@@ -45,7 +45,7 @@ function aceAttribsToClasses(hook, context){
 exports.aceCreateDomLine = function(name, context){
   var cls = context.cls;
   var domline = context.domline;
-  var sizesType = /(?:^| )size:([A-Za-z0-9]*)/.exec(cls);
+  var sizesType = /(?:^| )font-size:([A-Za-z0-9]*)/.exec(cls);
 
   var tagIndex;
   if (sizesType) tagIndex = _.indexOf(sizes, sizesType[1]);
@@ -74,9 +74,9 @@ function doInsertsizes(level){
     return;
   }
 
-  var new_size = ["size", ""];
+  var new_size = ["font-size", ""];
   if(level >= 0) {
-    new_size = ["size", sizes[level]];
+    new_size = ["font-size", sizes[level]];
   }
 
   documentAttributeManager.setAttributesOnRange(rep.selStart, rep.selEnd, [new_size]);
