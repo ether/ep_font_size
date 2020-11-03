@@ -34,7 +34,7 @@ describe("Set Font size and ensure its removed properly", function(){
 
     var fElement = inner$("div").first();
     helper.waitFor(function(){
-      let elementHasClass = fElement.children().first().hasClass("size:9");
+      let elementHasClass = fElement.children().first().hasClass("font-size:9");
       return expect(elementHasClass).to.be(true);
     }).done(function(){
       $firstTextElement = inner$("div").first();
@@ -44,7 +44,7 @@ describe("Set Font size and ensure its removed properly", function(){
       chrome$('.size-selection').change();
       helper.waitFor(function(){
         fElement = inner$("div").first();
-        let elementHasClass = fElement.children().first().hasClass("size:8");
+        let elementHasClass = fElement.children().first().hasClass("font-size:8");
         return expect(elementHasClass).to.be(true);
       }).done(function(){
         done();

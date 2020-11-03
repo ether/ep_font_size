@@ -24,7 +24,7 @@ describe('export size styles to HTML', function(){
   context('when pad text has one size', function() {
     before(function() {
       html = function() {
-        return buildHTML(textWithsize("red"));
+        return buildHTML(textWithSize("8"));
       }
     });
 
@@ -38,7 +38,7 @@ describe('export size styles to HTML', function(){
     it('returns HTML with size class', function(done) {
       api.get(getHTMLEndPointFor(padID))
       .expect(function(res){
-        var expectedRegex = regexWithsize("red");
+        var expectedRegex = regexWithSize("8");
         var expectedsizes = new RegExp(expectedRegex);
         var html = res.body.data.html;
         var foundsize = html.match(expectedsizes);
@@ -51,15 +51,15 @@ describe('export size styles to HTML', function(){
   context('when pad text has two sizes in a single line', function() {
     before(function() {
       html = function() {
-        return buildHTML(textWithsize("red") + textWithsize("blue"));
+        return buildHTML(textWithSize("8") + textWithSize("9"));
       }
     });
 
     it('returns HTML with two size spans', function(done) {
       api.get(getHTMLEndPointFor(padID))
       .expect(function(res){
-        var firstsize = regexWithsize("red");
-        var secondsize = regexWithsize("blue");
+        var firstsize = regexWithSize("8");
+        var secondsize = regexWithSize("9");
         var expectedRegex = firstsize + ".*" + secondsize;
         var expectedsizes = new RegExp(expectedRegex);
 
@@ -95,7 +95,7 @@ describe('export size styles to HTML', function(){
   context('when pad text has size inside strong', function() {
     before(function() {
       html = function() {
-        return buildHTML("<strong>" + textWithsize("red", "this is red and bold") + "</strong>");
+        return buildHTML("<strong>" + textWithSize("8", "this is size 8 and bold") + "</strong>");
       }
     });
 
@@ -103,8 +103,8 @@ describe('export size styles to HTML', function(){
     it('returns HTML with strong and size, in any order', function(done) {
       api.get(getHTMLEndPointFor(padID))
       .expect(function(res){
-        var strongInsidesizeRegex = regexWithsize("red", "<strong>this is red and bold<\/strong>");
-        var sizeInsideStrongRegex = "<strong>" + regexWithsize("red", "this is red and bold") + "<\/strong>";
+        var strongInsidesizeRegex = regexWithSize("8", "<strong>this is size 8 and bold<\/strong>");
+        var sizeInsideStrongRegex = "<strong>" + regexWithSize("8", "this is size 8 and bold") + "<\/strong>";
         var expectedStrongInsidesize = new RegExp(strongInsidesizeRegex);
         var expectedsizeInsideStrong = new RegExp(sizeInsideStrongRegex);
 
@@ -119,7 +119,7 @@ describe('export size styles to HTML', function(){
   context('when pad text has strong inside size', function() {
     before(function() {
       html = function() {
-        return buildHTML(textWithsize("red", "<strong>this is red and bold</strong>"));
+        return buildHTML(textWithSize("8", "<strong>this is size 8 and bold</strong>"));
       }
     });
 
@@ -127,8 +127,8 @@ describe('export size styles to HTML', function(){
     it('returns HTML with strong and size, in any order', function(done) {
       api.get(getHTMLEndPointFor(padID))
       .expect(function(res){
-        var strongInsidesizeRegex = regexWithsize("red", "<strong>this is red and bold<\/strong>");
-        var sizeInsideStrongRegex = "<strong>" + regexWithsize("red", "this is red and bold") + "<\/strong>";
+        var strongInsidesizeRegex = regexWithSize("8", "<strong>this is size 8 and bold<\/strong>");
+        var sizeInsideStrongRegex = "<strong>" + regexWithSize("8", "this is size 8 and bold") + "<\/strong>";
         var expectedStrongInsidesize = new RegExp(strongInsidesizeRegex);
         var expectedsizeInsideStrong = new RegExp(sizeInsideStrongRegex);
 
@@ -143,14 +143,14 @@ describe('export size styles to HTML', function(){
   context('when pad text has part with size and part without it', function() {
     before(function() {
       html = function() {
-        return buildHTML("no size here " + textWithsize("red"));
+        return buildHTML("no size here " + textWithSize("8"));
       }
     });
 
     it('returns HTML with part with size and part without it', function(done) {
       api.get(getHTMLEndPointFor(padID))
       .expect(function(res){
-        var expectedRegex = "no size here " + regexWithsize("red");
+        var expectedRegex = "no size here " + regexWithSize("8");
         var expectedsizes = new RegExp(expectedRegex);
         var html = res.body.data.html;
         var foundsize = html.match(expectedsizes);
@@ -206,19 +206,19 @@ var buildHTML = function(body) {
   return "<html><body>" + body + "</body></html>"
 }
 
-var textWithsize = function(size, text) {
+var textWithSize = function(size, text) {
   if (!text) text = "this is " + size;
 
-  return "<span class='size:" + size + "'>" + text + "</span>";
+  return "<span class='font-size:" + size + "'>" + text + "</span>";
 }
 
-var regexWithsize = function(size, text) {
+var regexWithSize = function(size, text) {
   if (!text) text = "this is " + size;
 
-  var regex = "<span .*class=['|\"].*size:" + size + ".*['|\"].*>" + text + "<\/span>";
+  var regex = "<span .*class=['|\"].*font-size:" + size + ".*['|\"].*>" + text + "<\/span>";
   // bug fix: if no other plugin on the Etherpad instance returns a value on getLineHTMLForExport() hook,
   // data-size=(...) won't be replaced by class=size:(...), so we need a fallback regex
-  var fallbackRegex = "<span .*data-size=['|\"]" + size + "['|\"].*>" + text + "<\/span>";
+  var fallbackRegex = "<span .*data-font-size=['|\"]" + size + "['|\"].*>" + text + "<\/span>";
 
   return regex + " || " + fallbackRegex;
 }
