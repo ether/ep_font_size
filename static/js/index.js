@@ -10,7 +10,7 @@ var sizes = ['8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19
 
 // Bind the event handler to the toolbar buttons
 var postAceInit = function (hook, context) {
-  const hs = $('.size-selection');
+  const hs = $('.size-selection, #font-size');
   hs.on('change', function () {
     const value = $(this).val();
     const intValue = parseInt(value, 10);
@@ -23,6 +23,7 @@ var postAceInit = function (hook, context) {
   });
   $('.font_size').hover(() => {
     $('.submenu > .size-selection').attr('size', 6);
+    $('.submenu > #font-size').attr('size', 6);
   });
   $('.font-size-icon').click(() => {
     $('#font-size').toggle();
@@ -93,8 +94,17 @@ function aceEditorCSS() {
   return cssFiles;
 }
 
+function postToolbarInit (hook_name, context) {
+  const editbar = context.toolbar;
+
+  editbar.registerCommand('fontSize', function (buttonName, toolbar, item) {
+    $('#font-size').toggle();
+  });
+};
+
 
 // Export all hooks
+exports.postToolbarInit = postToolbarInit;
 exports.aceInitialized = aceInitialized;
 exports.postAceInit = postAceInit;
 exports.aceAttribsToClasses = aceAttribsToClasses;
