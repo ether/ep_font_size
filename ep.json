@@ -4,6 +4,7 @@
       "name": "main",
       "client_hooks": {
         "postAceInit": "ep_font_size/static/js/index",
+        "postToolbarInit": "ep_font_size/static/js/index",
         "aceInitialized": "ep_font_size/static/js/index",
         "aceEditorCSS": "ep_font_size/static/js/index",
         "aceCreateDomLine": "ep_font_size/static/js/index",
@@ -11,6 +12,7 @@
         "collectContentPre": "ep_font_size/static/js/shared"
       },
       "hooks": {
+        "padInitToolbar": "ep_font_size/index",
         "eejsBlock_editbarMenuLeft": "ep_font_size/index",
         "collectContentPre": "ep_font_size/static/js/shared",
         "collectContentPost": "ep_font_size/static/js/shared",
