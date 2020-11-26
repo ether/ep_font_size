@@ -7,6 +7,11 @@
     "name": "John McLear",
     "email": "john@mclear.co.uk"
   },
+  "keywords": [
+    "ep",
+    "etherpad",
+    "plugin"
+  ],
   "dependencies": {},
   "engines": {
     "node": "*"
