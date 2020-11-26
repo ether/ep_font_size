@@ -21,9 +21,7 @@ describe('Set Font size and ensure its removed properly', function () {
     const inner$ = helper.padInner$;
 
     let $firstTextElement = inner$('div').first();
-    const $editorContainer = chrome$('#editorcontainer');
 
-    const $editorContents = inner$('div');
     $firstTextElement.sendkeys('foo');
     $firstTextElement.sendkeys('{selectall}');
 
