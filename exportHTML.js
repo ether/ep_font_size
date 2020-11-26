@@ -1,3 +1,5 @@
+'use strict';
+
 const eejs = require('ep_etherpad-lite/node/eejs/');
 
 // Add the props to be supported in export

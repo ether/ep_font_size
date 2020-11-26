@@ -1,3 +1,5 @@
+'use strict';
+
 describe('ep_font_size - Set Font size and ensure its removed properly', function () {
   // Tests still to do
   // Ensure additional chars keep the same formatting
