@@ -1,3 +1,5 @@
+'use strict';
+
 // Starts at b, ends just before e, skipping s each time.
 const range = (b, e, s = 1) => [...Array(Math.ceil((e - b) / s)).keys()].map((x) => (x * s) + b);
 
