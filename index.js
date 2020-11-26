@@ -1,5 +1,6 @@
 const eejs = require('ep_etherpad-lite/node/eejs/');
 const settings = require('ep_etherpad-lite/node/utils/Settings');
+const shared = require('./static/js/shared');
 
 exports.eejsBlock_editbarMenuLeft = function (hook_name, args, cb) {
   if (JSON.stringify(settings.toolbar).indexOf('fontSize') > -1 ) {
@@ -21,14 +22,13 @@ exports.eejsBlock_timesliderStyles = function (hook_name, args, cb) {
 
 exports.padInitToolbar = function (hook_name, args, cb) {
   const toolbar = args.toolbar;
-  const sizes = ['8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '22', '24', '26', '28', '30', '35', '40', '45', '50', '60'];
   const fontSize = toolbar.selectButton({
       command: 'fontSize',
       class: 'size-selection',
       selectId: 'font-size'
   });
   fontSize.addOption('dummy', 'Font Size', {'data-l10n-id': 'ep_font_size.size'});
-  sizes.forEach(function (size, value) {
+  shared.sizes.forEach(function (size, value) {
     fontSize.addOption(value, size);
   });
 

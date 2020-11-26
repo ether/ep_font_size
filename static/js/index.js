@@ -1,9 +1,7 @@
 var $ = require('ep_etherpad-lite/static/js/rjquery').$;
 var _ = require('ep_etherpad-lite/static/js/underscore');
+const shared = require('./shared');
 var cssFiles = ['ep_font_size/static/css/size.css'];
-
-// All our sizes are block elements, so we just return them.
-var sizes = ['8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '22', '24', '26', '28', '30', '35', '40', '45', '50', '60'];
 
 // Bind the event handler to the toolbar buttons
 exports.postAceInit = function (hook, context) {
@@ -45,7 +43,7 @@ exports.aceCreateDomLine = function (name, context) {
   const sizesType = /(?:^| )font-size:([A-Za-z0-9]*)/.exec(cls);
 
   let tagIndex;
-  if (sizesType) tagIndex = _.indexOf(sizes, sizesType[1]);
+  if (sizesType) tagIndex = _.indexOf(shared.sizes, sizesType[1]);
 
 
   if (tagIndex !== undefined && tagIndex >= 0) {
@@ -66,13 +64,13 @@ exports.aceCreateDomLine = function (name, context) {
 function doInsertsizes(level) {
   const rep = this.rep;
   const documentAttributeManager = this.documentAttributeManager;
-  if (!(rep.selStart && rep.selEnd) || (level >= 0 && sizes[level] === undefined)) {
+  if (!(rep.selStart && rep.selEnd) || (level >= 0 && shared.sizes[level] === undefined)) {
     return;
   }
 
   let new_size = ['font-size', ''];
   if (level >= 0) {
-    new_size = ['font-size', sizes[level]];
+    new_size = ['font-size', shared.sizes[level]];
   }
 
   documentAttributeManager.setAttributesOnRange(rep.selStart, rep.selEnd, [new_size]);
