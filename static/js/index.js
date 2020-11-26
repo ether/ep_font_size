@@ -89,7 +89,7 @@ exports.aceEditorCSS = function () {
 exports.postToolbarInit = function (hook_name, context) {
   const editbar = context.toolbar;
 
-  editbar.registerCommand('fontSize', function (buttonName, toolbar, item) {
+  editbar.registerCommand('fontSize', (buttonName, toolbar, item) => {
     $('#font-size').toggle();
   });
 };
