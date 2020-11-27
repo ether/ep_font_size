@@ -9,6 +9,60 @@ const path = require('path');
 const api = supertest(appUrl);
 const randomString = require('ep_etherpad-lite/static/js/pad_utils').randomString;
 
+// Loads the APIKEY.txt content into a string, and returns it.
+const getApiKey = () => {
+  const etherpadRoot = '/../../../../../../ep_etherpad-lite/../..';
+  const filePath = path.join(__dirname, `${etherpadRoot}/APIKEY.txt`);
+  const apiKey = fs.readFileSync(filePath, {encoding: 'utf-8'});
+  return apiKey.replace(/\n$/, '');
+};
+
+const apiKey = getApiKey();
+
+// Creates a pad and returns the pad id. Calls the callback when finished.
+const createPad = (padID, callback) => {
+  api.get(`/api/${apiVersion}/createPad?apikey=${apiKey}&padID=${padID}`)
+      .end((err, res) => {
+        if (err || (res.body.code !== 0)) callback(new Error('Unable to create new Pad'));
+        callback(padID);
+      });
+};
+
+const setHTML = (padID, html, callback) => {
+  api.get(`/api/${apiVersion}/setHTML?apikey=${apiKey}&padID=${padID}&html=${html}`)
+      .end((err, res) => {
+        if (err || (res.body.code !== 0)) callback(new Error('Unable to set pad HTML'));
+        callback(null, padID);
+      });
+};
+
+const getHTMLEndPointFor =
+    (padID, callback) => `/api/${apiVersion}/getHTML?apikey=${apiKey}&padID=${padID}`;
+
+const codeToBe = (expectedCode, res) => {
+  if (res.body.code !== expectedCode) {
+    throw new Error(`Code should be ${expectedCode}, was ${res.body.code}`);
+  }
+};
+
+const codeToBe0 = (res) => { codeToBe(0, res); };
+
+const buildHTML = (body) => `<html><body>${body}</body></html>`;
+
+const textWithSize = (size, text) => {
+  if (!text) text = `this is ${size}`;
+  return `<span class='font-size:${size}'>${text}</span>`;
+};
+
+const regexWithSize = (size, text) => {
+  if (!text) text = `this is ${size}`;
+  const regex = `<span .*class=['|"].*font-size:${size}.*['|"].*>${text}</span>`;
+  // bug fix: if no other plugin on the Etherpad instance returns a value on getLineHTMLForExport()
+  // hook, data-size=(...) won't be replaced by class=size:(...), so we need a fallback regex
+  const fallbackRegex = `<span .*data-font-size=['|"]${size}['|"].*>${text}</span>`;
+  return `${regex} || ${fallbackRegex}`;
+};
+
 
 describe('ep_font_size - export size styles to HTML', function () {
   let padID;
@@ -166,62 +220,3 @@ describe('ep_font_size - export size styles to HTML', function () {
     });
   });
 });
-
-// Loads the APIKEY.txt content into a string, and returns it.
-const getApiKey = () => {
-  const etherpadRoot = '/../../../../../../ep_etherpad-lite/../..';
-  const filePath = path.join(__dirname, `${etherpadRoot}/APIKEY.txt`);
-  const apiKey = fs.readFileSync(filePath, {encoding: 'utf-8'});
-  return apiKey.replace(/\n$/, '');
-};
-
-const apiKey = getApiKey();
-
-// Creates a pad and returns the pad id. Calls the callback when finished.
-const createPad = (padID, callback) => {
-  api.get(`/api/${apiVersion}/createPad?apikey=${apiKey}&padID=${padID}`)
-      .end((err, res) => {
-        if (err || (res.body.code !== 0)) callback(new Error('Unable to create new Pad'));
-
-        callback(padID);
-      });
-};
-
-const setHTML = (padID, html, callback) => {
-  api.get(`/api/${apiVersion}/setHTML?apikey=${apiKey}&padID=${padID}&html=${html}`)
-      .end((err, res) => {
-        if (err || (res.body.code !== 0)) callback(new Error('Unable to set pad HTML'));
-
-        callback(null, padID);
-      });
-};
-
-const getHTMLEndPointFor =
-    (padID, callback) => `/api/${apiVersion}/getHTML?apikey=${apiKey}&padID=${padID}`;
-
-const codeToBe = (expectedCode, res) => {
-  if (res.body.code !== expectedCode) {
-    throw new Error(`Code should be ${expectedCode}, was ${res.body.code}`);
-  }
-};
-
-const codeToBe0 = (res) => { codeToBe(0, res); };
-
-const buildHTML = (body) => `<html><body>${body}</body></html>`;
-
-const textWithSize = (size, text) => {
-  if (!text) text = `this is ${size}`;
-
-  return `<span class='font-size:${size}'>${text}</span>`;
-};
-
-const regexWithSize = (size, text) => {
-  if (!text) text = `this is ${size}`;
-
-  const regex = `<span .*class=['|"].*font-size:${size}.*['|"].*>${text}</span>`;
-  // bug fix: if no other plugin on the Etherpad instance returns a value on getLineHTMLForExport()
-  // hook, data-size=(...) won't be replaced by class=size:(...), so we need a fallback regex
-  const fallbackRegex = `<span .*data-font-size=['|"]${size}['|"].*>${text}</span>`;
-
-  return `${regex} || ${fallbackRegex}`;
-};

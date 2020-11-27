@@ -1,6 +1,29 @@
 'use strict';
 
 describe('ep_font_size - Select font-size dropdown localization', function () {
+  const changeEtherpadLanguageTo = (lang, callback) => {
+    const boldTitles = {
+      en: 'Bold (Ctrl+B)',
+      fr: 'Gras (Ctrl+B)',
+    };
+    const chrome$ = helper.padChrome$;
+
+    // click on the settings button to make settings visible
+    const $settingsButton = chrome$('.buttonicon-settings');
+    $settingsButton.click();
+
+    // select the language
+    const $language = chrome$('#languagemenu');
+    $language.val(lang);
+    $language.change();
+
+    // hide settings again
+    $settingsButton.click();
+
+    helper.waitFor(() => chrome$('.buttonicon-bold').parent()[0].title === boldTitles[lang])
+        .done(callback);
+  };
+
   // create a new pad with comment before each test run
   beforeEach(function (cb) {
     helper.newPad(() => {
@@ -25,27 +48,4 @@ describe('ep_font_size - Select font-size dropdown localization', function () {
 
     return done();
   });
-
-  const changeEtherpadLanguageTo = (lang, callback) => {
-    const boldTitles = {
-      en: 'Bold (Ctrl+B)',
-      fr: 'Gras (Ctrl+B)',
-    };
-    const chrome$ = helper.padChrome$;
-
-    // click on the settings button to make settings visible
-    const $settingsButton = chrome$('.buttonicon-settings');
-    $settingsButton.click();
-
-    // select the language
-    const $language = chrome$('#languagemenu');
-    $language.val(lang);
-    $language.change();
-
-    // hide settings again
-    $settingsButton.click();
-
-    helper.waitFor(() => chrome$('.buttonicon-bold').parent()[0].title === boldTitles[lang])
-        .done(callback);
-  };
 });
