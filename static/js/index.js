@@ -5,7 +5,7 @@ const shared = require('./shared');
 var cssFiles = ['ep_font_size/static/css/size.css'];
 
 // Bind the event handler to the toolbar buttons
-exports.postAceInit = function (hook, context) {
+exports.postAceInit = function (hookName, context) {
   const hs = $('#font-size select.size-selection');
   hs.on('change', function () {
     const value = $(this).val();
@@ -27,7 +27,7 @@ exports.postAceInit = function (hook, context) {
 };
 
 // Our sizes attribute will result in a size:red... _yellow class
-exports.aceAttribsToClasses = function (hook, context) {
+exports.aceAttribsToClasses = function (hookName, context) {
   if (context.key.indexOf('font-size:') !== -1) {
     const size = /(?:^| )font-size:([A-Za-z0-9]*)/.exec(context.key);
     return [`font-size:${size[1]}`];
@@ -39,7 +39,7 @@ exports.aceAttribsToClasses = function (hook, context) {
 
 
 // Here we convert the class size:red into a tag
-exports.aceCreateDomLine = function (name, context) {
+exports.aceCreateDomLine = function (hookName, context) {
   const cls = context.cls;
   const sizesType = /(?:^| )font-size:([A-Za-z0-9]*)/.exec(cls);
 
@@ -79,7 +79,7 @@ function doInsertsizes(level) {
 
 
 // Once ace is initialized, we set ace_doInsertsizes and bind it to the context
-exports.aceInitialized = function (hook, context) {
+exports.aceInitialized = function (hookName, context) {
   const editorInfo = context.editorInfo;
   editorInfo.ace_doInsertsizes = _(doInsertsizes).bind(context);
 };
@@ -88,7 +88,7 @@ exports.aceEditorCSS = function () {
   return cssFiles;
 };
 
-exports.postToolbarInit = function (hook_name, context) {
+exports.postToolbarInit = function (hookName, context) {
   const editbar = context.toolbar;
 
   editbar.registerCommand('fontSize', (buttonName, toolbar, item) => {

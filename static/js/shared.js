@@ -3,7 +3,7 @@
 // Starts at b, ends just before e, skipping s each time.
 const range = (b, e, s = 1) => [...Array(Math.ceil((e - b) / s)).keys()].map((x) => (x * s) + b);
 
-exports.collectContentPre = function (hook, context) {
+exports.collectContentPre = function (hookName, context) {
   const size = /(?:^| )font-size:([A-Za-z0-9]*)/.exec(context.cls);
   if (size && size[1]) {
     context.cc.doAttrib(context.state, `font-size:${size[1]}`);
