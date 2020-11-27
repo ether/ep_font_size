@@ -4,7 +4,7 @@ var cssFiles = ['ep_font_size/static/css/size.css'];
 
 // Bind the event handler to the toolbar buttons
 exports.postAceInit = function (hook, context) {
-  const hs = $('.size-selection, #font-size');
+  const hs = $('#font-size select.size-selection');
   hs.on('change', function () {
     const value = $(this).val();
     const intValue = parseInt(value, 10);
