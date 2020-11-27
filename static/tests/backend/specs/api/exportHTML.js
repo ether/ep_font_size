@@ -24,10 +24,8 @@ describe('ep_font_size - export size styles to HTML', function () {
   });
 
   context('when pad text has one size', function () {
-    before(function () {
-      html = function () {
-        return buildHTML(textWithSize('8'));
-      };
+    before(async function () {
+      html = () => buildHTML(textWithSize('8'));
     });
 
     it('returns ok', function (done) {
@@ -54,10 +52,8 @@ describe('ep_font_size - export size styles to HTML', function () {
   });
 
   context('when pad text has two sizes in a single line', function () {
-    before(function () {
-      html = function () {
-        return buildHTML(textWithSize('8') + textWithSize('9'));
-      };
+    before(async function () {
+      html = () => buildHTML(textWithSize('8') + textWithSize('9'));
     });
 
     it('returns HTML with two size spans', function (done) {
@@ -80,10 +76,8 @@ describe('ep_font_size - export size styles to HTML', function () {
   });
 
   context('when pad text has no sizes', function () {
-    before(function () {
-      html = function () {
-        return buildHTML('empty pad');
-      };
+    before(async function () {
+      html = () => buildHTML('empty pad');
     });
 
     it('returns HTML with no size', function (done) {
@@ -104,10 +98,8 @@ describe('ep_font_size - export size styles to HTML', function () {
   });
 
   context('when pad text has size inside strong', function () {
-    before(function () {
-      html = function () {
-        return buildHTML(`<strong>${textWithSize('8', 'this is size 8 and bold')}</strong>`);
-      };
+    before(async function () {
+      html = () => buildHTML(`<strong>${textWithSize('8', 'this is size 8 and bold')}</strong>`);
     });
 
     // Etherpad exports tags using the order they are defined on the array (bold is always inside
@@ -130,10 +122,8 @@ describe('ep_font_size - export size styles to HTML', function () {
   });
 
   context('when pad text has strong inside size', function () {
-    before(function () {
-      html = function () {
-        return buildHTML(textWithSize('8', '<strong>this is size 8 and bold</strong>'));
-      };
+    before(async function () {
+      html = () => buildHTML(textWithSize('8', '<strong>this is size 8 and bold</strong>'));
     });
 
     // Etherpad exports tags using the order they are defined on the array (bold is always inside
@@ -156,10 +146,8 @@ describe('ep_font_size - export size styles to HTML', function () {
   });
 
   context('when pad text has part with size and part without it', function () {
-    before(function () {
-      html = function () {
-        return buildHTML(`no size here ${textWithSize('8')}`);
-      };
+    before(async function () {
+      html = () => buildHTML(`no size here ${textWithSize('8')}`);
     });
 
     it('returns HTML with part with size and part without it', function (done) {
@@ -180,9 +168,9 @@ describe('ep_font_size - export size styles to HTML', function () {
 });
 
 // Loads the APIKEY.txt content into a string, and returns it.
-const getApiKey = function () {
-  const etherpad_root = '/../../../../../../ep_etherpad-lite/../..';
-  const filePath = path.join(__dirname, `${etherpad_root}/APIKEY.txt`);
+const getApiKey = () => {
+  const etherpadRoot = '/../../../../../../ep_etherpad-lite/../..';
+  const filePath = path.join(__dirname, `${etherpadRoot}/APIKEY.txt`);
   const apiKey = fs.readFileSync(filePath, {encoding: 'utf-8'});
   return apiKey.replace(/\n$/, '');
 };
@@ -190,7 +178,7 @@ const getApiKey = function () {
 const apiKey = getApiKey();
 
 // Creates a pad and returns the pad id. Calls the callback when finished.
-var createPad = function (padID, callback) {
+const createPad = (padID, callback) => {
   api.get(`/api/${apiVersion}/createPad?apikey=${apiKey}&padID=${padID}`)
       .end((err, res) => {
         if (err || (res.body.code !== 0)) callback(new Error('Unable to create new Pad'));
@@ -199,7 +187,7 @@ var createPad = function (padID, callback) {
       });
 };
 
-var setHTML = function (padID, html, callback) {
+const setHTML = (padID, html, callback) => {
   api.get(`/api/${apiVersion}/setHTML?apikey=${apiKey}&padID=${padID}&html=${html}`)
       .end((err, res) => {
         if (err || (res.body.code !== 0)) callback(new Error('Unable to set pad HTML'));
@@ -208,35 +196,32 @@ var setHTML = function (padID, html, callback) {
       });
 };
 
-var getHTMLEndPointFor = function (padID, callback) {
-  return `/api/${apiVersion}/getHTML?apikey=${apiKey}&padID=${padID}`;
-};
+const getHTMLEndPointFor =
+    (padID, callback) => `/api/${apiVersion}/getHTML?apikey=${apiKey}&padID=${padID}`;
 
-const codeToBe = function (expectedCode, res) {
+const codeToBe = (expectedCode, res) => {
   if (res.body.code !== expectedCode) {
     throw new Error(`Code should be ${expectedCode}, was ${res.body.code}`);
   }
 };
 
-var codeToBe0 = function (res) { codeToBe(0, res); };
+const codeToBe0 = (res) => { codeToBe(0, res); };
 
-var buildHTML = function (body) {
-  return `<html><body>${body}</body></html>`;
-};
+const buildHTML = (body) => `<html><body>${body}</body></html>`;
 
-var textWithSize = function (size, text) {
+const textWithSize = (size, text) => {
   if (!text) text = `this is ${size}`;
 
   return `<span class='font-size:${size}'>${text}</span>`;
 };
 
-var regexWithSize = function (size, text) {
+const regexWithSize = (size, text) => {
   if (!text) text = `this is ${size}`;
 
-  const regex = `<span .*class=['|"].*font-size:${size}.*['|"].*>${text}<\/span>`;
+  const regex = `<span .*class=['|"].*font-size:${size}.*['|"].*>${text}</span>`;
   // bug fix: if no other plugin on the Etherpad instance returns a value on getLineHTMLForExport()
   // hook, data-size=(...) won't be replaced by class=size:(...), so we need a fallback regex
-  const fallbackRegex = `<span .*data-font-size=['|"]${size}['|"].*>${text}<\/span>`;
+  const fallbackRegex = `<span .*data-font-size=['|"]${size}['|"].*>${text}</span>`;
 
   return `${regex} || ${fallbackRegex}`;
 };

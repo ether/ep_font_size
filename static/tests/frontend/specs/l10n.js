@@ -26,7 +26,7 @@ describe('ep_font_size - Select font-size dropdown localization', function () {
     return done();
   });
 
-  const changeEtherpadLanguageTo = function (lang, callback) {
+  const changeEtherpadLanguageTo = (lang, callback) => {
     const boldTitles = {
       en: 'Bold (Ctrl+B)',
       fr: 'Gras (Ctrl+B)',
@@ -45,7 +45,7 @@ describe('ep_font_size - Select font-size dropdown localization', function () {
     // hide settings again
     $settingsButton.click();
 
-    helper.waitFor(() => chrome$('.buttonicon-bold').parent()[0].title == boldTitles[lang])
+    helper.waitFor(() => chrome$('.buttonicon-bold').parent()[0].title === boldTitles[lang])
         .done(callback);
   };
 });
