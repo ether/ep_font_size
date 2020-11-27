@@ -37,21 +37,15 @@ exports.aceAttribsToClasses = (hookName, context) => {
 
 exports.aceCreateDomLine = (hookName, context) => {
   const cls = context.cls;
-  const sizesType = /(?:^| )font-size:([A-Za-z0-9]*)/.exec(cls);
-
-  let tagIndex;
-  if (sizesType) tagIndex = _.indexOf(shared.sizes, sizesType[1]);
-
-
-  if (tagIndex !== undefined && tagIndex >= 0) {
-    const modifier = {
-      extraOpenTags: '',
-      extraCloseTags: '',
-      cls,
-    };
-    return [modifier];
-  }
-  return [];
+  const [, sizesType] = /(?:^| )font-size:([A-Za-z0-9]*)/.exec(cls) || [];
+  if (sizesType == null) return [];
+  const tagIndex = _.indexOf(shared.sizes, sizesType);
+  if (tagIndex < 0) return [];
+  return [{
+    extraOpenTags: '',
+    extraCloseTags: '',
+    cls,
+  }];
 };
 
 exports.aceInitialized = (hookName, context) => {
@@ -68,9 +62,7 @@ exports.aceInitialized = (hookName, context) => {
 exports.aceEditorCSS = () => ['ep_font_size/static/css/size.css'];
 
 exports.postToolbarInit = (hookName, context) => {
-  const editbar = context.toolbar;
-
-  editbar.registerCommand('fontSize', (buttonName, toolbar, item) => {
+  context.toolbar.registerCommand('fontSize', (buttonName, toolbar, item) => {
     $('#font-size').toggle();
   });
 };
