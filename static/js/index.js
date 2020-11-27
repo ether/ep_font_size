@@ -25,7 +25,6 @@ exports.postAceInit = (hookName, context) => {
   });
 };
 
-// Our sizes attribute will result in a size:red... _yellow class
 exports.aceAttribsToClasses = (hookName, context) => {
   if (context.key.indexOf('font-size:') !== -1) {
     const size = /(?:^| )font-size:([A-Za-z0-9]*)/.exec(context.key);
@@ -36,8 +35,6 @@ exports.aceAttribsToClasses = (hookName, context) => {
   }
 };
 
-
-// Here we convert the class size:red into a tag
 exports.aceCreateDomLine = (hookName, context) => {
   const cls = context.cls;
   const sizesType = /(?:^| )font-size:([A-Za-z0-9]*)/.exec(cls);
