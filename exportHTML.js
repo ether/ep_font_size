@@ -10,10 +10,11 @@ exports.exportHtmlAdditionalTagsWithData = async (hookName, pad) => {
 };
 
 // Include CSS for HTML export
-exports.stylesForExport = async (hookName, padId) => eejs.require('ep_font_size/static/css/size.css');
+exports.stylesForExport =
+    async (hookName, padId) => eejs.require('ep_font_size/static/css/size.css');
 
 exports.getLineHTMLForExport = async (hookName, context) => {
   // Replace data-size="foo" with class="font-size:x".
-  context.lineContent =
-      context.lineContent.replace(/data-font-size=["|']([0-9a-zA-Z]+)["|']/gi, 'class="font-size:$1"');
+  context.lineContent = context.lineContent.replace(
+      /data-font-size=["|']([0-9a-zA-Z]+)["|']/gi, 'class="font-size:$1"');
 };

@@ -44,7 +44,10 @@ describe('ep_font_size - export size styles to HTML', function () {
             const expectedsizes = new RegExp(expectedRegex);
             const html = res.body.data.html;
             const foundsize = html.match(expectedsizes);
-            if (!foundsize) throw new Error(`size not exported. Regex used: ${expectedRegex}, html exported: ${html}`);
+            if (!foundsize) {
+              throw new Error(
+                  `size not exported. Regex used: ${expectedRegex}, html exported: ${html}`);
+            }
           })
           .end(done);
     });
@@ -67,7 +70,10 @@ describe('ep_font_size - export size styles to HTML', function () {
 
             const html = res.body.data.html;
             const foundsize = html.match(expectedsizes);
-            if (!foundsize) throw new Error(`size not exported. Regex used: ${expectedRegex}, html exported: ${html}`);
+            if (!foundsize) {
+              throw new Error(
+                  `size not exported. Regex used: ${expectedRegex}, html exported: ${html}`);
+            }
           })
           .end(done);
     });
@@ -88,7 +94,10 @@ describe('ep_font_size - export size styles to HTML', function () {
 
             const html = res.body.data.html;
             const foundsize = html.match(nosize);
-            if (!foundsize) throw new Error(`size exported, should not have any. Regex used: ${expectedRegex}, html exported: ${html}`);
+            if (!foundsize) {
+              throw new Error('size exported, should not have any. ' +
+                              `Regex used: ${expectedRegex}, html exported: ${html}`);
+            }
           })
           .end(done);
     });
@@ -101,7 +110,8 @@ describe('ep_font_size - export size styles to HTML', function () {
       };
     });
 
-    // Etherpad exports tags using the order they are defined on the array (bold is always inside size)
+    // Etherpad exports tags using the order they are defined on the array (bold is always inside
+    // size)
     it('returns HTML with strong and size, in any order', function (done) {
       api.get(getHTMLEndPointFor(padID))
           .expect((res) => {
@@ -126,7 +136,8 @@ describe('ep_font_size - export size styles to HTML', function () {
       };
     });
 
-    // Etherpad exports tags using the order they are defined on the array (bold is always inside size)
+    // Etherpad exports tags using the order they are defined on the array (bold is always inside
+    // size)
     it('returns HTML with strong and size, in any order', function (done) {
       api.get(getHTMLEndPointFor(padID))
           .expect((res) => {
@@ -158,7 +169,10 @@ describe('ep_font_size - export size styles to HTML', function () {
             const expectedsizes = new RegExp(expectedRegex);
             const html = res.body.data.html;
             const foundsize = html.match(expectedsizes);
-            if (!foundsize) throw new Error(`size not exported. Regex used: ${expectedRegex}, html exported: ${html}`);
+            if (!foundsize) {
+              throw new Error(
+                  `size not exported. Regex used: ${expectedRegex}, html exported: ${html}`);
+            }
           })
           .end(done);
     });
@@ -220,8 +234,8 @@ var regexWithSize = function (size, text) {
   if (!text) text = `this is ${size}`;
 
   const regex = `<span .*class=['|"].*font-size:${size}.*['|"].*>${text}<\/span>`;
-  // bug fix: if no other plugin on the Etherpad instance returns a value on getLineHTMLForExport() hook,
-  // data-size=(...) won't be replaced by class=size:(...), so we need a fallback regex
+  // bug fix: if no other plugin on the Etherpad instance returns a value on getLineHTMLForExport()
+  // hook, data-size=(...) won't be replaced by class=size:(...), so we need a fallback regex
   const fallbackRegex = `<span .*data-font-size=['|"]${size}['|"].*>${text}<\/span>`;
 
   return `${regex} || ${fallbackRegex}`;
