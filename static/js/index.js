@@ -1,10 +1,10 @@
 'use strict';
 
-var _ = require('ep_etherpad-lite/static/js/underscore');
+const _ = require('ep_etherpad-lite/static/js/underscore');
 const shared = require('./shared');
 
 // Bind the event handler to the toolbar buttons
-exports.postAceInit = function (hookName, context) {
+exports.postAceInit = (hookName, context) => {
   const hs = $('#font-size select.size-selection');
   hs.on('change', function () {
     const value = $(this).val();
@@ -26,19 +26,19 @@ exports.postAceInit = function (hookName, context) {
 };
 
 // Our sizes attribute will result in a size:red... _yellow class
-exports.aceAttribsToClasses = function (hookName, context) {
+exports.aceAttribsToClasses = (hookName, context) => {
   if (context.key.indexOf('font-size:') !== -1) {
     const size = /(?:^| )font-size:([A-Za-z0-9]*)/.exec(context.key);
     return [`font-size:${size[1]}`];
   }
-  if (context.key == 'font-size') {
+  if (context.key === 'font-size') {
     return [`font-size:${context.value}`];
   }
 };
 
 
 // Here we convert the class size:red into a tag
-exports.aceCreateDomLine = function (hookName, context) {
+exports.aceCreateDomLine = (hookName, context) => {
   const cls = context.cls;
   const sizesType = /(?:^| )font-size:([A-Za-z0-9]*)/.exec(cls);
 
@@ -70,7 +70,7 @@ exports.aceInitialized = (hookName, context) => {
 
 exports.aceEditorCSS = () => ['ep_font_size/static/css/size.css'];
 
-exports.postToolbarInit = function (hookName, context) {
+exports.postToolbarInit = (hookName, context) => {
   const editbar = context.toolbar;
 
   editbar.registerCommand('fontSize', (buttonName, toolbar, item) => {
