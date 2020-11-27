@@ -18,7 +18,7 @@ exports.eejsBlock_dd_format = function (hookName, args, cb) {
 };
 
 exports.eejsBlock_timesliderStyles = function (hookName, args, cb) {
-  args.content = `${args.content}<style>${eejs.require('ep_font_size/static/css/size.css')}</style>`;
+  args.content += `<style>${eejs.require('ep_font_size/static/css/size.css')}</style>`;
   return cb();
 };
 

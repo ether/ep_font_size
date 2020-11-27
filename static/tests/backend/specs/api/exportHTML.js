@@ -105,14 +105,15 @@ describe('ep_font_size - export size styles to HTML', function () {
     it('returns HTML with strong and size, in any order', function (done) {
       api.get(getHTMLEndPointFor(padID))
           .expect((res) => {
-            const strongInsidesizeRegex = regexWithSize('8', '<strong>this is size 8 and bold<\/strong>');
-            const sizeInsideStrongRegex = `<strong>${regexWithSize('8', 'this is size 8 and bold')}<\/strong>`;
-            const expectedStrongInsidesize = new RegExp(strongInsidesizeRegex);
-            const expectedsizeInsideStrong = new RegExp(sizeInsideStrongRegex);
-
+            const txt = 'this is size 8 and bold';
+            const strongInside = new RegExp(regexWithSize('8', `<strong>${txt}</strong>`));
+            const sizeInside = new RegExp(`<strong>${regexWithSize('8', txt)}</strong>`);
             const html = res.body.data.html;
-            const foundsize = html.match(expectedStrongInsidesize) || html.match(expectedsizeInsideStrong);
-            if (!foundsize) throw new Error(`size not exported. Regex used: [${strongInsidesizeRegex} || ${sizeInsideStrongRegex}], html exported: ${html}`);
+            const foundsize = html.match(strongInside) || html.match(sizeInside);
+            if (!foundsize) {
+              throw new Error(`size not exported. Regex used: [${strongInside.source} || ` +
+                              `${sizeInside.source}], html exported: ${html}`);
+            }
           })
           .end(done);
     });
@@ -129,14 +130,15 @@ describe('ep_font_size - export size styles to HTML', function () {
     it('returns HTML with strong and size, in any order', function (done) {
       api.get(getHTMLEndPointFor(padID))
           .expect((res) => {
-            const strongInsidesizeRegex = regexWithSize('8', '<strong>this is size 8 and bold<\/strong>');
-            const sizeInsideStrongRegex = `<strong>${regexWithSize('8', 'this is size 8 and bold')}<\/strong>`;
-            const expectedStrongInsidesize = new RegExp(strongInsidesizeRegex);
-            const expectedsizeInsideStrong = new RegExp(sizeInsideStrongRegex);
-
+            const txt = 'this is size 8 and bold';
+            const strongInside = new RegExp(regexWithSize('8', `<strong>${txt}</strong>`));
+            const sizeInside = new RegExp(`<strong>${regexWithSize('8', txt)}</strong>`);
             const html = res.body.data.html;
-            const foundsize = html.match(expectedStrongInsidesize) || html.match(expectedsizeInsideStrong);
-            if (!foundsize) throw new Error(`size not exported. Regex used: [${strongInsidesizeRegex} || ${sizeInsideStrongRegex}], html exported: ${html}`);
+            const foundsize = html.match(strongInside) || html.match(sizeInside);
+            if (!foundsize) {
+              throw new Error(`size not exported. Regex used: [${strongInside.source} || ` +
+                              `${sizeInside.source}], html exported: ${html}`);
+            }
           })
           .end(done);
     });
