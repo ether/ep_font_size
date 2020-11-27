@@ -1,4 +1,3 @@
-var $ = require('ep_etherpad-lite/static/js/rjquery').$;
 var _ = require('ep_etherpad-lite/static/js/underscore');
 const shared = require('./shared');
 var cssFiles = ['ep_font_size/static/css/size.css'];
