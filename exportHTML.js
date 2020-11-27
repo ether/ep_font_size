@@ -3,14 +3,11 @@
 const eejs = require('ep_etherpad-lite/node/eejs/');
 
 // Add the props to be supported in export
-exports.exportHtmlAdditionalTagsWithData = async (hookName, pad) => findAllsizeUsedOn(pad).map((name) => ['font-size', name]);
-
-// Iterate over pad attributes to find only the size ones
-function findAllsizeUsedOn(pad) {
-  const sizesUsed = [];
-  pad.pool.eachAttrib((key, value) => { if (key === 'font-size') sizesUsed.push(value); });
-  return sizesUsed;
-}
+exports.exportHtmlAdditionalTagsWithData = async (hookName, pad) => {
+  const ret = [];
+  pad.pool.eachAttrib((k, v) => { if (k === 'font-size') ret.push([k, v]); });
+  return ret;
+};
 
 // Include CSS for HTML export
 exports.stylesForExport = async (hookName, padId) => eejs.require('ep_font_size/static/css/size.css');

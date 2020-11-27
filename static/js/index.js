@@ -2,7 +2,6 @@
 
 var _ = require('ep_etherpad-lite/static/js/underscore');
 const shared = require('./shared');
-var cssFiles = ['ep_font_size/static/css/size.css'];
 
 // Bind the event handler to the toolbar buttons
 exports.postAceInit = function (hookName, context) {
@@ -58,35 +57,18 @@ exports.aceCreateDomLine = function (hookName, context) {
   return [];
 };
 
-
-// Find out which lines are selected and assign them the size attribute.
-// Passing a level >= 0 will set a sizes on the selected lines, level < 0
-// will remove it
-function doInsertsizes(level) {
-  const rep = this.rep;
-  const documentAttributeManager = this.documentAttributeManager;
-  if (!(rep.selStart && rep.selEnd) || (level >= 0 && shared.sizes[level] === undefined)) {
-    return;
-  }
-
-  let new_size = ['font-size', ''];
-  if (level >= 0) {
-    new_size = ['font-size', shared.sizes[level]];
-  }
-
-  documentAttributeManager.setAttributesOnRange(rep.selStart, rep.selEnd, [new_size]);
-}
-
-
-// Once ace is initialized, we set ace_doInsertsizes and bind it to the context
-exports.aceInitialized = function (hookName, context) {
-  const editorInfo = context.editorInfo;
-  editorInfo.ace_doInsertsizes = _(doInsertsizes).bind(context);
+exports.aceInitialized = (hookName, context) => {
+  // Passing a level >= 0 will set a sizes on the selected lines, level < 0 will remove it
+  context.editorInfo.ace_doInsertsizes = (level) => {
+    const {rep, documentAttributeManager} = context;
+    if (!(rep.selStart && rep.selEnd)) return;
+    if (level >= 0 && shared.sizes[level] === undefined) return;
+    const newSize = ['font-size', level >= 0 ? shared.sizes[level] : ''];
+    documentAttributeManager.setAttributesOnRange(rep.selStart, rep.selEnd, [newSize]);
+  };
 };
 
-exports.aceEditorCSS = function () {
-  return cssFiles;
-};
+exports.aceEditorCSS = () => ['ep_font_size/static/css/size.css'];
 
 exports.postToolbarInit = function (hookName, context) {
   const editbar = context.toolbar;
