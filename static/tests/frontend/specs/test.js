@@ -1,4 +1,4 @@
-describe('Set Font size and ensure its removed properly', function () {
+describe('ep_font_size - Set Font size and ensure its removed properly', function () {
   // Tests still to do
   // Ensure additional chars keep the same formatting
   // Ensure heading value is properly set when caret is placed on font size changed content

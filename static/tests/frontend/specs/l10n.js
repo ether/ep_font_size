@@ -1,4 +1,4 @@
-describe("Select font-size dropdown localization", function(){
+describe('ep_font_size - Select font-size dropdown localization', function () {
     //create a new pad with comment before each test run
     beforeEach(function(cb){
       helper.newPad(function() {

@@ -8,7 +8,7 @@ const api = supertest(appUrl);
 const randomString = require('ep_etherpad-lite/static/js/pad_utils').randomString;
 
 
-describe('export size styles to HTML', function () {
+describe('ep_font_size - export size styles to HTML', function () {
   let padID;
   let html;
 
