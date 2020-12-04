@@ -5,7 +5,7 @@ const shared = require('./shared');
 
 // Bind the event handler to the toolbar buttons
 exports.postAceInit = (hookName, context) => {
-  const hs = $('#font-size select.size-selection');
+  const hs = $('#font-size, select.size-selection');
   hs.on('change', function () {
     const value = $(this).val();
     const intValue = parseInt(value, 10);
