@@ -28,8 +28,8 @@ describe('ep_font_size - Set Font size and ensure its removed properly', functio
     $firstTextElement.sendkeys('{selectall}');
 
     // sets first line to Font size 9
-    chrome$('.size-selection').val('1');
-    chrome$('.size-selection').change();
+    chrome$('#font-size').val('1');
+    chrome$('#font-size').change();
 
     let fElement = inner$('div').first();
     helper.waitFor(() => {
@@ -39,8 +39,8 @@ describe('ep_font_size - Set Font size and ensure its removed properly', functio
       $firstTextElement = inner$('div').first();
       $firstTextElement.sendkeys('{selectall}');
       // sets first line to Font size 8
-      chrome$('.size-selection').val('0');
-      chrome$('.size-selection').change();
+      chrome$('#font-size').val('0');
+      chrome$('#font-size').change();
       helper.waitFor(() => {
         fElement = inner$('div').first();
         const elementHasClass = fElement.children().first().hasClass('font-size:8');

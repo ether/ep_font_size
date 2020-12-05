@@ -31,7 +31,7 @@ exports.padInitToolbar = (hookName, args, cb) => {
   });
   fontSize.addOption('dummy', 'Font Size', {'data-l10n-id': 'ep_font_size.size'});
   shared.sizes.forEach((size, value) => {
-    fontSize.addOption(value, size);
+    fontSize.addOption(value, size.toString());
   });
 
   toolbar.registerButton('fontSize', fontSize);
