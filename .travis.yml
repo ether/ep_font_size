@@ -27,8 +27,6 @@ jobs:
       script:
         - npx lockfile-lint --path package-lock.json --validate-https --allowed-hosts npm
     - name: "Run the Backend tests"
-      before_script:
-        - "tests/frontend/travis/sauce_tunnel.sh"
       before_install:
         - sudo add-apt-repository -y ppa:libreoffice/ppa
         - sudo apt-get update
