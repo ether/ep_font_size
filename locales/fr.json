@@ -1,6 +1,8 @@
 {
 	"@metadata": {
-		"authors": []
+		"authors": [
+			"Verdy p"
+		]
 	},
-	"ep_font_size.size": "Taille"
+	"ep_font_size.size": "Taille de police"
 }
