@@ -39,7 +39,7 @@ describe('ep_font_size - Select font-size dropdown localization', function () {
 
   it('Localizes dropdown when Etherpad language is changed', function (done) {
     const optionTranslations = {
-      'ep_font_size.size': 'Taille',
+      'ep_font_size.size': 'Taille de police',
     };
     const chrome$ = helper.padChrome$;
     const $option = chrome$('#editbar').find('#font-size').find('option').first();
