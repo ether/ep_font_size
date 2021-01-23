@@ -1,6 +1,5 @@
 'use strict';
 
-const _ = require('ep_etherpad-lite/static/js/underscore');
 const shared = require('./shared');
 
 // Bind the event handler to the toolbar buttons
@@ -9,7 +8,7 @@ exports.postAceInit = (hookName, context) => {
   hs.on('change', function () {
     const value = $(this).val();
     const intValue = parseInt(value, 10);
-    if (!_.isNaN(intValue)) {
+    if (!isNaN(intValue)) {
       context.ace.callWithAce((ace) => {
         ace.ace_doInsertsizes(intValue);
       }, 'insertsize', true);
@@ -39,7 +38,7 @@ exports.aceCreateDomLine = (hookName, context) => {
   const cls = context.cls;
   const [, sizesType] = /(?:^| )font-size:([A-Za-z0-9]*)/.exec(cls) || [];
   if (sizesType == null) return [];
-  const tagIndex = _.indexOf(shared.sizes, sizesType);
+  const tagIndex = shared.sizes.indexOf(sizesType);
   if (tagIndex < 0) return [];
   return [{
     extraOpenTags: '',
