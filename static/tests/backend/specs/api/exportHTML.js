@@ -1,27 +1,15 @@
 'use strict';
 
-const appUrl = 'http://localhost:9001';
-const apiVersion = 1;
-
-const supertest = require('ep_etherpad-lite/node_modules/supertest');
-const fs = require('fs');
-const path = require('path');
-const api = supertest(appUrl);
+const common = require('ep_etherpad-lite/tests/backend/common');
 const randomString = require('ep_etherpad-lite/static/js/pad_utils').randomString;
 
-// Loads the APIKEY.txt content into a string, and returns it.
-const getApiKey = () => {
-  const etherpadRoot = '/../../../../../../ep_etherpad-lite/../..';
-  const filePath = path.join(__dirname, `${etherpadRoot}/APIKEY.txt`);
-  const apiKey = fs.readFileSync(filePath, {encoding: 'utf-8'});
-  return apiKey.replace(/\n$/, '');
-};
-
-const apiKey = getApiKey();
+let agent;
+const apiVersion = 1;
+const apiKey = common.apiKey;
 
 // Creates a pad and returns the pad id. Calls the callback when finished.
 const createPad = (padID, callback) => {
-  api.get(`/api/${apiVersion}/createPad?apikey=${apiKey}&padID=${padID}`)
+  agent.get(`/api/${apiVersion}/createPad?apikey=${apiKey}&padID=${padID}`)
       .end((err, res) => {
         if (err || (res.body.code !== 0)) callback(new Error('Unable to create new Pad'));
         callback(padID);
@@ -29,7 +17,7 @@ const createPad = (padID, callback) => {
 };
 
 const setHTML = (padID, html, callback) => {
-  api.get(`/api/${apiVersion}/setHTML?apikey=${apiKey}&padID=${padID}&html=${html}`)
+  agent.get(`/api/${apiVersion}/setHTML?apikey=${apiKey}&padID=${padID}&html=${html}`)
       .end((err, res) => {
         if (err || (res.body.code !== 0)) callback(new Error('Unable to set pad HTML'));
         callback(null, padID);
@@ -68,6 +56,8 @@ describe('ep_font_size - export size styles to HTML', function () {
   let padID;
   let html;
 
+  before(async function () { agent = await common.init(); });
+
   // create a new pad before each test run
   beforeEach(function (done) {
     padID = randomString(5);
@@ -83,14 +73,14 @@ describe('ep_font_size - export size styles to HTML', function () {
     });
 
     it('returns ok', function (done) {
-      api.get(getHTMLEndPointFor(padID))
+      agent.get(getHTMLEndPointFor(padID))
           .expect(codeToBe0)
           .expect('Content-Type', /json/)
           .expect(200, done);
     });
 
     it('returns HTML with size class', function (done) {
-      api.get(getHTMLEndPointFor(padID))
+      agent.get(getHTMLEndPointFor(padID))
           .expect((res) => {
             const expectedRegex = regexWithSize('8');
             const expectedsizes = new RegExp(expectedRegex);
@@ -111,7 +101,7 @@ describe('ep_font_size - export size styles to HTML', function () {
     });
 
     it('returns HTML with two size spans', function (done) {
-      api.get(getHTMLEndPointFor(padID))
+      agent.get(getHTMLEndPointFor(padID))
           .expect((res) => {
             const firstsize = regexWithSize('8');
             const secondsize = regexWithSize('9');
@@ -135,7 +125,7 @@ describe('ep_font_size - export size styles to HTML', function () {
     });
 
     it('returns HTML with no size', function (done) {
-      api.get(getHTMLEndPointFor(padID))
+      agent.get(getHTMLEndPointFor(padID))
           .expect((res) => {
             const expectedRegex = '.*empty pad.*';
             const nosize = new RegExp(expectedRegex);
@@ -159,7 +149,7 @@ describe('ep_font_size - export size styles to HTML', function () {
     // Etherpad exports tags using the order they are defined on the array (bold is always inside
     // size)
     it('returns HTML with strong and size, in any order', function (done) {
-      api.get(getHTMLEndPointFor(padID))
+      agent.get(getHTMLEndPointFor(padID))
           .expect((res) => {
             const txt = 'this is size 8 and bold';
             const strongInside = new RegExp(regexWithSize('8', `<strong>${txt}</strong>`));
@@ -183,7 +173,7 @@ describe('ep_font_size - export size styles to HTML', function () {
     // Etherpad exports tags using the order they are defined on the array (bold is always inside
     // size)
     it('returns HTML with strong and size, in any order', function (done) {
-      api.get(getHTMLEndPointFor(padID))
+      agent.get(getHTMLEndPointFor(padID))
           .expect((res) => {
             const txt = 'this is size 8 and bold';
             const strongInside = new RegExp(regexWithSize('8', `<strong>${txt}</strong>`));
@@ -205,7 +195,7 @@ describe('ep_font_size - export size styles to HTML', function () {
     });
 
     it('returns HTML with part with size and part without it', function (done) {
-      api.get(getHTMLEndPointFor(padID))
+      agent.get(getHTMLEndPointFor(padID))
           .expect((res) => {
             const expectedRegex = `no size here ${regexWithSize('8')}`;
             const expectedsizes = new RegExp(expectedRegex);
