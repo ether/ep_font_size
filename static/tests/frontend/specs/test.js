@@ -51,7 +51,7 @@ describe('ep_font_size - Set Font size and ensure its removed properly', functio
     });
   });
 
-  it('iframe height is correct using very large font, regression for #4914', async () => {
+  it('iframe height is correct using very large font, regression for #4914', async function () {
     const ace_inner = helper.padOuter$("iframe[name='ace_inner']").get(0);
     const oldHeight = parseInt(window.getComputedStyle(ace_inner).height);
 
