@@ -50,4 +50,29 @@ describe('ep_font_size - Set Font size and ensure its removed properly', functio
       });
     });
   });
+
+  it('iframe height is correct using very large font, regression for #4914', async () => {
+    const ace_inner = helper.padOuter$("iframe[name='ace_inner']").get(0);
+    const oldHeight = parseInt(window.getComputedStyle(ace_inner).height);
+
+    await helper.clearPad();
+    await helper.edit('Very large text that ideally spans across multiple lines\n' +
+      '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n' +
+      '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n' +
+      '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n');
+    await helper.edit('Another very large text that should span across multiple lines', 80);
+
+    const lines = helper.linesDiv();
+    helper.selectLines(lines[0], lines[lines.length - 1]);
+    await helper.waitForPromise(() => !helper.padInner$.document.getSelection().isCollapsed);
+
+    // font size 60
+    helper.padChrome$('#font-size').val('22');
+    helper.padChrome$('#font-size').change();
+
+    // ace_inner should be above 2000px now
+    const height = parseInt(window.getComputedStyle(ace_inner).height);
+    expect(height).to.be.above(2000);
+    expect(height).to.be.above(oldHeight);
+  });
 });
