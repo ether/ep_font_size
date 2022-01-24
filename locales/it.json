@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Beta16"
+			"Beta16",
+			"VamosErik88"
 		]
 	},
-	"ep_font_size.size": "Dimensione carattere"
+	"ep_font_size.size": "Dimensione Carattere"
 }
