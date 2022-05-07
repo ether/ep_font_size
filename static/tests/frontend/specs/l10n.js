@@ -1,7 +1,7 @@
 'use strict';
 
 describe('ep_font_size - Select font-size dropdown localization', function () {
-  const changeEtherpadLanguageTo = (lang, callback) => {
+  const changeEtherpadLanguageTo = async (lang) => {
     const boldTitles = {
       en: 'Bold (Ctrl+B)',
       fr: 'Gras (Ctrl + B)',
@@ -20,24 +20,23 @@ describe('ep_font_size - Select font-size dropdown localization', function () {
     // hide settings again
     $settingsButton.click();
 
-    helper.waitFor(() => chrome$('.buttonicon-bold').parent()[0].title === boldTitles[lang])
-        .done(callback);
+    await helper.waitForPromise(
+        () => chrome$('.buttonicon-bold').parent()[0].title === boldTitles[lang]);
   };
 
   // create a new pad with comment before each test run
-  beforeEach(function (cb) {
-    helper.newPad(() => {
-      changeEtherpadLanguageTo('fr', cb);
-    });
+  beforeEach(async function () {
     this.timeout(60000);
+    await helper.aNewPad();
+    await changeEtherpadLanguageTo('fr');
   });
 
   // ensure we go back to English to avoid breaking other tests:
-  after(function (cb) {
-    changeEtherpadLanguageTo('en', cb);
+  after(async function () {
+    await changeEtherpadLanguageTo('en');
   });
 
-  it('Localizes dropdown when Etherpad language is changed', function (done) {
+  it('Localizes dropdown when Etherpad language is changed', async function () {
     const optionTranslations = {
       'ep_font_size.size': 'Taille de police',
     };
@@ -45,7 +44,5 @@ describe('ep_font_size - Select font-size dropdown localization', function () {
     const $option = chrome$('#editbar').find('#font-size').find('option').first();
 
     expect($option.text()).to.be(optionTranslations[$option.attr('data-l10n-id')]);
-
-    return done();
   });
 });

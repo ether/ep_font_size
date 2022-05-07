@@ -6,9 +6,9 @@ describe('ep_font_size - Set Font size and ensure its removed properly', functio
   // Ensure heading value is properly set when caret is placed on font size changed content
 
   // create a new pad before each test run
-  beforeEach(function (cb) {
-    helper.newPad(cb);
+  beforeEach(async function () {
     this.timeout(60000);
+    await helper.aNewPad();
   });
 
   // Create Pad
@@ -17,7 +17,7 @@ describe('ep_font_size - Set Font size and ensure its removed properly', functio
   // Select all text
   // Set it to size 8
 
-  it('Changes from size 8 to 9 and back to 8', function (done) {
+  it('Changes from size 8 to 9 and back to 8', async function () {
     this.timeout(60000);
     const chrome$ = helper.padChrome$;
     const inner$ = helper.padInner$;
@@ -32,22 +32,19 @@ describe('ep_font_size - Set Font size and ensure its removed properly', functio
     chrome$('#font-size').change();
 
     let fElement = inner$('div').first();
-    helper.waitFor(() => {
+    await helper.waitForPromise(() => {
       const elementHasClass = fElement.children().first().hasClass('font-size:9');
       return expect(elementHasClass).to.be(true);
-    }).done(() => {
-      $firstTextElement = inner$('div').first();
-      $firstTextElement.sendkeys('{selectall}');
-      // sets first line to Font size 8
-      chrome$('#font-size').val('0');
-      chrome$('#font-size').change();
-      helper.waitFor(() => {
-        fElement = inner$('div').first();
-        const elementHasClass = fElement.children().first().hasClass('font-size:8');
-        return expect(elementHasClass).to.be(true);
-      }).done(() => {
-        done();
-      });
+    });
+    $firstTextElement = inner$('div').first();
+    $firstTextElement.sendkeys('{selectall}');
+    // sets first line to Font size 8
+    chrome$('#font-size').val('0');
+    chrome$('#font-size').change();
+    await helper.waitForPromise(() => {
+      fElement = inner$('div').first();
+      const elementHasClass = fElement.children().first().hasClass('font-size:8');
+      return expect(elementHasClass).to.be(true);
     });
   });
 
