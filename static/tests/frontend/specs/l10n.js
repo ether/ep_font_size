@@ -4,7 +4,7 @@ describe('ep_font_size - Select font-size dropdown localization', function () {
   const changeEtherpadLanguageTo = (lang, callback) => {
     const boldTitles = {
       en: 'Bold (Ctrl+B)',
-      fr: 'Gras (Ctrl+B)',
+      fr: 'Gras (Ctrl + B)',
     };
     const chrome$ = helper.padChrome$;
 
