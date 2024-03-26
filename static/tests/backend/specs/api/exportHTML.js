@@ -2,7 +2,7 @@
 
 const common = require('ep_etherpad-lite/tests/backend/common');
 const randomString = require('ep_etherpad-lite/static/js/pad_utils').randomString;
-import {generateJWTToken, generateJWTTokenUser} from "../../common";
+import {generateJWTToken, generateJWTTokenUser} from "ep_etherpad-lite/tests/backend/common";
 
 let agent;
 const apiVersion = 1;
