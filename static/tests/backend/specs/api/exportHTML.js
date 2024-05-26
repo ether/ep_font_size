@@ -74,28 +74,25 @@ describe('ep_font_size - export size styles to HTML', function () {
       html = () => buildHTML(textWithSize('8'));
     });
 
-    it('returns ok', async function (done) {
-      agent.get(getHTMLEndPointFor(padID))
+    it('returns ok', async function () {
+      await agent.get(getHTMLEndPointFor(padID))
         .set("Authorization", await generateJWTToken())
         .expect(codeToBe0)
         .expect('Content-Type', /json/)
-        .expect(200, done);
+        .expect(200);
     });
 
-    it('returns HTML with size class', async function (done) {
-      agent.get(getHTMLEndPointFor(padID))
-        .set("Authorization", await generateJWTToken())
-        .expect((res) => {
-          const expectedRegex = regexWithSize('8');
-          const expectedsizes = new RegExp(expectedRegex);
-          const html = res.body.data.html;
-          const foundsize = html.match(expectedsizes);
-          if (!foundsize) {
-            throw new Error(
-              `size not exported. Regex used: ${expectedRegex}, html exported: ${html}`);
-          }
-        })
-        .end(done);
+    it('returns HTML with size class', async function () {
+      const res = await agent.get(getHTMLEndPointFor(padID))
+        .set("Authorization", await generateJWTToken());
+      const expectedRegex = regexWithSize('8');
+      const expectedsizes = new RegExp(expectedRegex);
+      const html = res.body.data.html;
+      const foundsize = html.match(expectedsizes);
+      if (!foundsize) {
+        throw new Error(
+          `size not exported. Regex used: ${expectedRegex}, html exported: ${html}`);
+      }
     });
   });
 
@@ -104,23 +101,20 @@ describe('ep_font_size - export size styles to HTML', function () {
       html = () => buildHTML(textWithSize('8') + textWithSize('9'));
     });
 
-    it('returns HTML with two size spans', async function (done) {
-      agent.get(getHTMLEndPointFor(padID))
-        .set("Authorization", await generateJWTToken())
-        .expect((res) => {
-          const firstsize = regexWithSize('8');
-          const secondsize = regexWithSize('9');
-          const expectedRegex = `${firstsize}.*${secondsize}`;
-          const expectedsizes = new RegExp(expectedRegex);
+    it('returns HTML with two size spans', async function () {
+      const res = await agent.get(getHTMLEndPointFor(padID))
+        .set("Authorization", await generateJWTToken());
+      const firstsize = regexWithSize('8');
+      const secondsize = regexWithSize('9');
+      const expectedRegex = `${firstsize}.*${secondsize}`;
+      const expectedsizes = new RegExp(expectedRegex);
 
-          const html = res.body.data.html;
-          const foundsize = html.match(expectedsizes);
-          if (!foundsize) {
-            throw new Error(
-              `size not exported. Regex used: ${expectedRegex}, html exported: ${html}`);
-          }
-        })
-        .end(done);
+      const html = res.body.data.html;
+      const foundsize = html.match(expectedsizes);
+      if (!foundsize) {
+        throw new Error(
+          `size not exported. Regex used: ${expectedRegex}, html exported: ${html}`);
+      }
     });
   });
 
@@ -129,21 +123,18 @@ describe('ep_font_size - export size styles to HTML', function () {
       html = () => buildHTML('empty pad');
     });
 
-    it('returns HTML with no size', async function (done) {
-      agent.get(getHTMLEndPointFor(padID))
-        .set("Authorization", await generateJWTToken())
-        .expect((res) => {
-          const expectedRegex = '.*empty pad.*';
-          const nosize = new RegExp(expectedRegex);
+    it('returns HTML with no size', async function () {
+      const res = await agent.get(getHTMLEndPointFor(padID))
+        .set("Authorization", await generateJWTToken());
+      const expectedRegex = '.*empty pad.*';
+      const nosize = new RegExp(expectedRegex);
 
-          const html = res.body.data.html;
-          const foundsize = html.match(nosize);
-          if (!foundsize) {
-            throw new Error('size exported, should not have any. ' +
-              `Regex used: ${expectedRegex}, html exported: ${html}`);
-          }
-        })
-        .end(done);
+      const html = res.body.data.html;
+      const foundsize = html.match(nosize);
+      if (!foundsize) {
+        throw new Error('size exported, should not have any. ' +
+          `Regex used: ${expectedRegex}, html exported: ${html}`);
+      }
     });
   });
 
@@ -154,21 +145,18 @@ describe('ep_font_size - export size styles to HTML', function () {
 
     // Etherpad exports tags using the order they are defined on the array (bold is always inside
     // size)
-    it('returns HTML with strong and size, in any order', async function (done) {
-      agent.get(getHTMLEndPointFor(padID))
-        .set("Authorization", await generateJWTToken())
-        .expect((res) => {
-          const txt = 'this is size 8 and bold';
-          const strongInside = new RegExp(regexWithSize('8', `<strong>${txt}</strong>`));
-          const sizeInside = new RegExp(`<strong>${regexWithSize('8', txt)}</strong>`);
-          const html = res.body.data.html;
-          const foundsize = html.match(strongInside) || html.match(sizeInside);
-          if (!foundsize) {
-            throw new Error(`size not exported. Regex used: [${strongInside.source} || ` +
-              `${sizeInside.source}], html exported: ${html}`);
-          }
-        })
-        .end(done);
+    it('returns HTML with strong and size, in any order', async function () {
+      const res = await agent.get(getHTMLEndPointFor(padID))
+        .set("Authorization", await generateJWTToken());
+      const txt = 'this is size 8 and bold';
+      const strongInside = new RegExp(regexWithSize('8', `<strong>${txt}</strong>`));
+      const sizeInside = new RegExp(`<strong>${regexWithSize('8', txt)}</strong>`);
+      const html = res.body.data.html;
+      const foundsize = html.match(strongInside) || html.match(sizeInside);
+      if (!foundsize) {
+        throw new Error(`size not exported. Regex used: [${strongInside.source} || ` +
+          `${sizeInside.source}], html exported: ${html}`);
+      }
     });
   });
 
@@ -179,21 +167,18 @@ describe('ep_font_size - export size styles to HTML', function () {
 
     // Etherpad exports tags using the order they are defined on the array (bold is always inside
     // size)
-    it('returns HTML with strong and size, in any order', async function (done) {
-      agent.get(getHTMLEndPointFor(padID))
+    it('returns HTML with strong and size, in any order', async function () {
+      const res = await agent.get(getHTMLEndPointFor(padID))
         .set("Authorization", await generateJWTToken())
-        .expect((res) => {
-          const txt = 'this is size 8 and bold';
-          const strongInside = new RegExp(regexWithSize('8', `<strong>${txt}</strong>`));
-          const sizeInside = new RegExp(`<strong>${regexWithSize('8', txt)}</strong>`);
-          const html = res.body.data.html;
-          const foundsize = html.match(strongInside) || html.match(sizeInside);
-          if (!foundsize) {
-            throw new Error(`size not exported. Regex used: [${strongInside.source} || ` +
-              `${sizeInside.source}], html exported: ${html}`);
-          }
-        })
-        .end(done);
+      const txt = 'this is size 8 and bold';
+      const strongInside = new RegExp(regexWithSize('8', `<strong>${txt}</strong>`));
+      const sizeInside = new RegExp(`<strong>${regexWithSize('8', txt)}</strong>`);
+      const html = res.body.data.html;
+      const foundsize = html.match(strongInside) || html.match(sizeInside);
+      if (!foundsize) {
+        throw new Error(`size not exported. Regex used: [${strongInside.source} || ` +
+          `${sizeInside.source}], html exported: ${html}`);
+      }
     });
   });
 
@@ -202,20 +187,17 @@ describe('ep_font_size - export size styles to HTML', function () {
       html = () => buildHTML(`no size here ${textWithSize('8')}`);
     });
 
-    it('returns HTML with part with size and part without it', async function (done) {
-      agent.get(getHTMLEndPointFor(padID))
-        .set("Authorization", await generateJWTToken())
-        .expect((res) => {
-          const expectedRegex = `no size here ${regexWithSize('8')}`;
-          const expectedsizes = new RegExp(expectedRegex);
-          const html = res.body.data.html;
-          const foundsize = html.match(expectedsizes);
-          if (!foundsize) {
-            throw new Error(
-              `size not exported. Regex used: ${expectedRegex}, html exported: ${html}`);
-          }
-        })
-        .end(done);
+    it('returns HTML with part with size and part without it', async function () {
+      const res = await agent.get(getHTMLEndPointFor(padID))
+        .set("Authorization", await generateJWTToken());
+      const expectedRegex = `no size here ${regexWithSize('8')}`;
+      const expectedsizes = new RegExp(expectedRegex);
+      const html = res.body.data.html;
+      const foundsize = html.match(expectedsizes);
+      if (!foundsize) {
+        throw new Error(
+          `size not exported. Regex used: ${expectedRegex}, html exported: ${html}`);
+      }
     });
   });
 });
