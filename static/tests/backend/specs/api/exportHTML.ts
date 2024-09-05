@@ -1,8 +1,8 @@
 'use strict';
 
-const common = require('ep_etherpad-lite/tests/backend/common');
-const randomString = require('ep_etherpad-lite/static/js/pad_utils').randomString;
-import {generateJWTToken, generateJWTTokenUser} from "ep_etherpad-lite/tests/backend/common";
+import {init} from "ep_etherpad-lite/tests/backend/common";
+import {randomString} from "ep_etherpad-lite/static/js/pad_utils"
+import {generateJWTToken} from "ep_etherpad-lite/tests/backend/common";
 
 let agent;
 const apiVersion = 1;
@@ -58,7 +58,7 @@ describe('ep_font_size - export size styles to HTML', function () {
   let padID;
   let html;
 
-  before(async function () { agent = await common.init(); });
+  before(async function () { agent = await init(); });
 
   // create a new pad before each test run
   beforeEach(function (done) {
