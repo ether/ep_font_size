@@ -12,7 +12,7 @@ text.
 ## Installation
 
 ```shell
-npm install ep_font_size
+pnpm run plugins install ep_font_size
 ```
 
 or Use the Etherpad ``/admin`` interface.
