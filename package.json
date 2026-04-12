@@ -1,7 +1,7 @@
 {
   "description": "Apply sizes to fonts",
   "name": "ep_font_size",
-  "version": "0.4.96",
+  "version": "0.4.97",
   "license": "Apache-2.0",
   "author": {
     "name": "John McLear",
