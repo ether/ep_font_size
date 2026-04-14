@@ -1,8 +1,13 @@
 'use strict';
 
+const {inlineAttribute} = require('ep_plugin_helpers/attributes');
 const shared = require('./shared');
 
-// Bind the event handler to the toolbar buttons
+const fontSize = inlineAttribute({attr: 'font-size'});
+
+exports.aceAttribsToClasses = fontSize.aceAttribsToClasses;
+exports.aceCreateDomLine = fontSize.aceCreateDomLine;
+
 exports.postAceInit = (hookName, context) => {
   const hs = $('#font-size, select.size-selection');
   hs.on('change', function () {
@@ -20,36 +25,12 @@ exports.postAceInit = (hookName, context) => {
     $('.submenu > .size-selection').attr('size', 6);
     $('.submenu > #font-size').attr('size', 6);
   });
-  $('.font-size-icon').click(() => {
+  $('.font-size-icon').on('click', () => {
     $('#font-size').toggle();
   });
 };
 
-exports.aceAttribsToClasses = (hookName, context) => {
-  if (context.key.indexOf('font-size:') !== -1) {
-    const size = /(?:^| )font-size:([A-Za-z0-9]*)/.exec(context.key);
-    return [`font-size:${size[1]}`];
-  }
-  if (context.key === 'font-size') {
-    return [`font-size:${context.value}`];
-  }
-};
-
-exports.aceCreateDomLine = (hookName, context) => {
-  const cls = context.cls;
-  const [, sizesType] = /(?:^| )font-size:([A-Za-z0-9]*)/.exec(cls) || [];
-  if (sizesType == null) return [];
-  const tagIndex = shared.sizes.indexOf(sizesType);
-  if (tagIndex < 0) return [];
-  return [{
-    extraOpenTags: '',
-    extraCloseTags: '',
-    cls,
-  }];
-};
-
 exports.aceInitialized = (hookName, context) => {
-  // Passing a level >= 0 will set a sizes on the selected lines, level < 0 will remove it
   context.editorInfo.ace_doInsertsizes = (level) => {
     const {rep, documentAttributeManager} = context;
     if (!(rep.selStart && rep.selEnd)) return;
@@ -62,7 +43,7 @@ exports.aceInitialized = (hookName, context) => {
 exports.aceEditorCSS = () => ['ep_font_size/static/css/size.css'];
 
 exports.postToolbarInit = (hookName, context) => {
-  context.toolbar.registerCommand('fontSize', (buttonName, toolbar, item) => {
+  context.toolbar.registerCommand('fontSize', () => {
     $('#font-size').toggle();
   });
 };
