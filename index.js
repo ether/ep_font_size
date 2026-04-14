@@ -7,7 +7,7 @@ const eejs = require('ep_etherpad-lite/node/eejs/');
 const shared = require('./static/js/shared');
 
 exports.eejsBlock_editbarMenuLeft = template('ep_font_size/templates/editbarButtons.ejs', {
-  skip: () => JSON.stringify(settings.toolbar).indexOf('fontSize') > -1,
+  skip: () => settings.toolbar && JSON.stringify(settings.toolbar).indexOf('fontSize') > -1,
 });
 
 exports.eejsBlock_dd_format = template('ep_font_size/templates/fileMenu.ejs');
