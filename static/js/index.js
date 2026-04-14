@@ -13,6 +13,7 @@ exports.postAceInit = (hookName, context) => {
         ace.ace_doInsertsizes(intValue);
       }, 'insertsize', true);
       hs.val('dummy');
+      context.ace.focus();
     }
   });
   $('.font_size').hover(() => {
