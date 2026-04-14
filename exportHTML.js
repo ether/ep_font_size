@@ -1,20 +1,13 @@
 'use strict';
 
-const eejs = require('ep_etherpad-lite/node/eejs/');
+const {inlineAttributeExport} = require('ep_plugin_helpers/attributes-server');
 
-// Add the props to be supported in export
-exports.exportHtmlAdditionalTagsWithData = async (hookName, pad) => {
-  const ret = [];
-  pad.pool.eachAttrib((k, v) => { if (k === 'font-size') ret.push([k, v]); });
-  return ret;
-};
+const sizeExport = inlineAttributeExport({
+  attr: 'font-size',
+  exportCssFile: 'ep_font_size/static/css/size.css',
+  exportDataAttr: 'data-font-size',
+});
 
-// Include CSS for HTML export
-exports.stylesForExport =
-    async (hookName, padId) => eejs.require('ep_font_size/static/css/size.css');
-
-exports.getLineHTMLForExport = async (hookName, context) => {
-  // Replace data-size="foo" with class="font-size:x".
-  context.lineContent = context.lineContent.replace(
-      /data-font-size=["|']([0-9a-zA-Z]+)["|']/gi, 'class="font-size:$1"');
-};
+exports.exportHtmlAdditionalTagsWithData = sizeExport.exportHtmlAdditionalTagsWithData;
+exports.stylesForExport = sizeExport.stylesForExport;
+exports.getLineHTMLForExport = sizeExport.getLineHTMLForExport;
