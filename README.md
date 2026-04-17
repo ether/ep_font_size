@@ -1,4 +1,4 @@
-![Publish Status](https://github.com/ether/ep_font_size/workflows/Node.js%20Package/badge.svg) [![Backend Tests Status](https://github.com/ether/ep_font_size/actions/workflows/test-and-release.yml/badge.svg)](https://github.com/ether/ep_font_size/actions/workflows/test-and-release.yml)
+![Demo](demo.gif) [![Backend Tests Status](https://github.com/ether/ep_font_size/actions/workflows/test-and-release.yml/badge.svg)](https://github.com/ether/ep_font_size/actions/workflows/test-and-release.yml)
 
 [![Travis (.com)](https://api.travis-ci.com/ether/ep_font_size.git.svg?branch=develop)](https://travis-ci.com/github/ether/ep_font_size.git)
 
