@@ -64,8 +64,14 @@ test.describe('ep_font_size', () => {
     // Index 22 → font-size:60 (largest published option in the legacy spec).
     await setFontSizeIndex(page, '22');
 
-    const heightOf = () => page.evaluate(() => {
-      const f = document.querySelector<HTMLIFrameElement>('iframe[name="ace_inner"]')!;
+    // The ace_inner iframe lives inside the ace_outer iframe, so a top-level
+    // page.evaluate() can't see it (document.querySelector returns null and
+    // getComputedStyle then throws "parameter 1 is not of type 'Element'").
+    // Run the lookup in the ace_outer frame's document instead.
+    const outerFrame = page.frame('ace_outer')!;
+    const heightOf = () => outerFrame.evaluate(() => {
+      const f = document.querySelector<HTMLIFrameElement>('iframe[name="ace_inner"]');
+      if (!f) return 0;
       return parseInt(window.getComputedStyle(f).height || '0', 10);
     });
     await expect.poll(heightOf, {timeout: 10_000}).toBeGreaterThan(2000);
