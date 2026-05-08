@@ -200,4 +200,32 @@ describe('ep_font_size - export size styles to HTML', function () {
       }
     });
   });
+
+  // Round-trip via inline `style="font-size:..."`. External HTML
+  // (Word/DOCX via mammoth, pasted markup) uses the standard CSS form
+  // instead of the `class="font-size:N"` form ep_font_size emits on
+  // export. Without the import-side style reader, the size is lost.
+  context('when imported HTML uses style="font-size:..."', function () {
+    for (const size of ['8', '14', '20']) {
+      it(`preserves style="font-size:${size}px" through round-trip`, function (done) {
+        const newPadID = randomString(5);
+        createPad(newPadID, () => {
+          const padHtml =
+              buildHTML(`<p>before <span style="font-size:${size}px">styled</span> after</p>`);
+          setHTML(newPadID, padHtml, async () => {
+            const res = await agent.get(getHTMLEndPointFor(newPadID))
+                .set('Authorization', await generateJWTToken());
+            const out = res.body.data.html;
+            const re = new RegExp(
+                `(class=["'].*font-size:${size}|data-font-size=["']${size})`);
+            if (!re.test(out)) {
+              return done(new Error(
+                  `Size not preserved on style-import round-trip. Got: ${out}`));
+            }
+            done();
+          });
+        });
+      });
+    }
+  });
 });
