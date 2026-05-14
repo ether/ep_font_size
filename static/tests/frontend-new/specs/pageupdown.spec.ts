@@ -129,16 +129,17 @@ test.describe('ep_font_size – Page Up / Page Down with mixed font sizes', () =
       await page.keyboard.press('Enter');
     }
 
-    // Select all text and apply font-size:14 (index 6) through the plugin UI.
+    // Select all text and apply a large font size through the plugin UI so
+    // PageDown must move the viewport, not only the caret.
     await page.keyboard.down('Control');
     await page.keyboard.press('A');
     await page.keyboard.up('Control');
-    await setFontSizeIndex(page, '6'); // index 6 → size 14
+    await setFontSizeIndex(page, '22'); // index 22 → size 60
     await page.waitForTimeout(500);
 
     // Confirm the class was applied to the first span.
     await expect(padBody.locator('div').first().locator('span').first())
-        .toHaveClass(/font-size:14/);
+        .toHaveClass(/font-size:60/);
 
     // Move caret to the very first line.
     await page.keyboard.down('Control');
