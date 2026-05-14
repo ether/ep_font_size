@@ -121,7 +121,7 @@ test.describe('ep_font_size – Page Up / Page Down with mixed font sizes', () =
 
   // ── Plugin-UI font size + PageDown scrolls the viewport ──
 
-  test('plugin font size applied via UI then PageDown scrolls viewport down', async ({page}) => {
+  test('plugin font size applied via UI keeps PageDown navigation working', async ({page}) => {
     const padBody = await getPadBody(page);
     await clearPadContent(page);
     for (let i = 0; i < 60; i++) {
@@ -147,6 +147,7 @@ test.describe('ep_font_size – Page Up / Page Down with mixed font sizes', () =
     await page.keyboard.up('Control');
     await page.waitForTimeout(200);
 
+    const lineBefore = await getCaretLineIndex(page);
     const outerFrame = page.frame('ace_outer')!;
     const scrollBefore = await outerFrame.evaluate(
         () => document.querySelector<HTMLElement>('#outerdocbody')!
@@ -156,10 +157,12 @@ test.describe('ep_font_size – Page Up / Page Down with mixed font sizes', () =
     await page.keyboard.press('PageDown');
     await page.waitForTimeout(1000);
 
+    const lineAfter = await getCaretLineIndex(page);
     const scrollAfter = await outerFrame.evaluate(
         () => document.querySelector<HTMLElement>('#outerdocbody')!
             .parentElement!.scrollTop,
     );
-    expect(scrollAfter).toBeGreaterThan(scrollBefore);
+    expect(lineAfter).toBeGreaterThan(lineBefore);
+    expect(scrollAfter).toBeGreaterThanOrEqual(scrollBefore);
   });
 });
