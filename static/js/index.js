@@ -1,6 +1,7 @@
 'use strict';
 
 const {inlineAttribute} = require('ep_plugin_helpers/attributes');
+const {toolbarSelect} = require('ep_plugin_helpers/toolbar-select');
 const shared = require('./shared');
 
 const fontSize = inlineAttribute({attr: 'font-size'});
@@ -9,17 +10,11 @@ exports.aceAttribsToClasses = fontSize.aceAttribsToClasses;
 exports.aceCreateDomLine = fontSize.aceCreateDomLine;
 
 exports.postAceInit = (hookName, context) => {
-  const hs = $('#font-size, select.size-selection');
-  hs.on('change', function () {
-    const value = $(this).val();
-    const intValue = parseInt(value, 10);
-    if (!isNaN(intValue)) {
-      context.ace.callWithAce((ace) => {
-        ace.ace_doInsertsizes(intValue);
-      }, 'insertsize', true);
-      hs.val('dummy');
-      context.ace.focus();
-    }
+  toolbarSelect({
+    selector: '#font-size, select.size-selection',
+    context,
+    invoke: (ace, value) => ace.ace_doInsertsizes(value),
+    op: 'insertsize',
   });
   $('.font_size').hover(() => {
     $('.submenu > .size-selection').attr('size', 6);
