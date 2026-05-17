@@ -31,10 +31,13 @@ jobs:
         uses: actions/checkout@v6
         with:
           repository: ether/etherpad-lite
-      - uses: pnpm/action-setup@v5
+      - uses: pnpm/action-setup@v6
         name: Install pnpm
         with:
-          version: 10
+          # No `version:` — defer to packageManager in package.json so we
+          # don't trip "Multiple versions of pnpm specified" when an
+          # upstream checkout (etherpad-lite) pins a different pnpm via
+          # packageManager. See pnpm/action-setup#225.
           run_install: false
       - name: Get pnpm store directory
         shell: bash
