@@ -3,7 +3,7 @@
 const settingsModule = require('ep_etherpad-lite/node/utils/Settings');
 const settings = settingsModule.default || settingsModule;
 const {template, rawHTML} = require('ep_plugin_helpers');
-const eejs = require('ep_etherpad-lite/node/eejs/');
+const eejs = require('ep_etherpad-lite/node/eejs');
 const shared = require('./static/js/shared');
 
 exports.eejsBlock_editbarMenuLeft = template('ep_font_size/templates/editbarButtons.ejs', {
